@@ -1,7 +1,7 @@
 ---
 title: 'Project 1: Wrangling, Exploration, Visualization'
 author: "SDS322E"
-date: ''
+date: 'October 23, 2021'
 output:
   html_document:
     toc: yes
@@ -12,21 +12,25 @@ output:
     toc: no
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F,
 tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
+
 ```
 
 ## Data Wrangling, Exploration, Visualization
 
-### Name and EID here
+### Louise Mendoza
 
 #### Introduction 
 
-Paragraph or two introducing your datasets and variables, why they are interesting to you, etc.
+The two datasets I selected are "drug_product" and "drug_medicaid". "drug_product" is a dataset that contains the name of the drug, its dosage form, and the drug route. "drug_medicaid" is a dataset that contains the name of the drug and the spending information for the drugs that are paid through the Medicaid program. This dataset focuses on the average spending per dosage unit and change in average spending per dosage unit over time. My interest in these two datasets are to see any correlations between drug route/dosage form and if there is an increase in Medicaid spending due to these variables. My predictions and potential associations are that total drug spending has increased over the years, and that spending on vaccines has also increased due to COVID-19. 
 
 ```{R}
-# read your datasets in here, e.g., with read_csv()
+library(tidyverse)
+drug_product <- read_csv("~/project1/Drugs_product.csv")
+drug_medicaid <- read_csv("~/project1/M.csv")
 
 ```
 
@@ -35,57 +39,124 @@ Paragraph or two introducing your datasets and variables, why they are interesti
 If your datasets are tidy already, demonstrate that you can reshape data with pivot wider/longer here (e.g., untidy and then retidy). Alternatively, it may be easier to wait until the wrangling section so you can reshape your summary statistics. Note here if you are going to do this.
 
 ```{R}
-# your tidying code (if applicable; can also wait until wrangling section)
-```
+drug_medicaid <- drug_medicaid %>% select(-c(8:10, 14:16, 20:22, 26:28, 32:36)) %>% pivot_longer(5:19) %>% 
+  separate(name, c("TypeofMetric", "Metric", "Year"), sep="_") %>% unite(TypeofMetric, Metric, col = "Metric", 
+    sep = ".")
 
+drug_product <- drug_product %>% select(-c(1:2, 5, 9:12, 18))
+```
+To tidy the two datasets, I realized that the original drug medicaid dataset had the different columns for spending/claims/dosage units for each year so I did a pivot longer to be able to separate the type of metric by year. I also worked on deleting some of the columns from the drug product dataset that were making the dataset hard to understand. 
     
 #### Joining/Merging
 
 ```{R}
-# your joining code
+drug_product %>% summarize(n_distinct(PROPRIETARYNAME))
 
-# your joining code
+drug_medicaid %>% summarize(n_distinct(Brnd_Name))
+
+fulldata <- drug_product %>% inner_join(drug_medicaid, by=c("PROPRIETARYNAME"="Brnd_Name")) %>%
+  pivot_wider(names_from="Metric",values_from="value")
+
+sapply(fulldata, class)
+
+fulldata <- fulldata %>% unnest(Tot.Spndng, Tot.Dsg.Unts, Tot.Clms)
+
+antifulldata <- drug_product %>% anti_join(drug_medicaid, by=c("PROPRIETARYNAME"="Brnd_Name"))
+
+glimpse(antifulldata)
 ```
 
-Discussions of joining here. Feel encouraged to break up into more than once code chunk and discuss each in turn.
+I joined the two datasets by the brand names of the drugs listed in each dataset, using an inner_join to remove any rows without a match. I did a pivot_wider step here as I felt as though the full, joined dataset was hard to read with the pivot_longer step done previously. I also determined that my numeric values were being read as lists, so I unnested them so they could be read as numeric values.
+
+In the medicaid dataset, there were 237,885 rows with 7 columns and 4289 unique drugs while in the drug product dataset, there were 117,365 rows and 10 columns and 43730 unique drugs. After doing the inner join and pivot wider, the full dataset has 1,127,695 rows and 17 columns, which has a significantly larger amount of rows than the two original datasets. The distinct IDs from the medicaid dataset were: total spending, total dosage units, total claims, manufacturer name, and total manufacturers. The distinct IDs from the drug product dataset were: the dosage form name, route name, labeler name, active ingredient unit, and pharmacy class. The IDs that the datasets have in common were the brand and generic name of the drug. 96,057 rows were dropped and potential problems could be that the trends are not representative of the full dataset since so many rows were dropped. 
 
 ####  Wrangling
 
 ```{R}
-# your wrangling code
+# Average total spending in the year 2018 of drugs administered subcutaneously
+fulldata %>% na.omit() %>% filter(Year==2018, ROUTENAME=="SUBCUTANEOUS") %>% summarize(mean(Tot.Spndng))
 
-# your wrangling code
+# Drug with greatest dosage form in the year 2015
+fulldata %>% na.omit() %>% filter(Year==2015) %>% group_by(DOSAGEFORMNAME) %>% summarize(n=n()) %>%
+  arrange(desc(n)) %>% glimpse()
 
-# your wrangling code
+# Determination of spending per dosage unit
+fulldata %>% na.omit() %>% mutate(spndng.per.dsg.unts = Tot.Spndng/Tot.Dsg.Unts) %>% head()
+
+# Matching all the drugs that begin with Tr
+fulldata %>% na.omit() %>% select(PROPRIETARYNAME) %>% str_match_all("Tr[^ ]+") %>% glimpse()
 ```
 
-Your discussion of wrangling section here. Feel encouraged to break up into more than once code chunk and discuss each in turn.
+I used this first section of wrangling to use the dplyr functions (`filter, select, arrange, group_by, mutate, summarize`) to manipulate and explore my dataset. I used variables that I was interested in such as the type of drug route and total spending and used these variables to explore patterns and relationships in my dataset. What I found the most interesting in this set of dplyr functions is how the drug type/form that is most used is the tablet form. 
 
+```{r}
+#Summary statistics
+fulldata %>% na.omit() %>%  summarize(mean_TS=mean(Tot.Spndng), sd_TS=sd(Tot.Spndng), var_TS=var(Tot.Spndng), quantile_TS=quantile(Tot.Spndng),min_TS=min(Tot.Spndng), max_TS=max(Tot.Spndng), distinct_TS=n_distinct(Tot.Spndng)) %>% glimpse()
+
+fulldata %>% na.omit() %>% summarize(mean_TD=mean(Tot.Dsg.Unts), sd_TD=sd(Tot.Dsg.Unts), var_TD=var(Tot.Dsg.Unts),
+                       quantile_TD=quantile(Tot.Dsg.Unts), min_TD=min(Tot.Dsg.Unts), max_TD=max(Tot.Dsg.Unts),
+                       distinct_TD=n_distinct(Tot.Dsg.Unts)) %>% glimpse()
+
+fulldata %>% na.omit() %>% summarize(mean_TC=mean(Tot.Clms), sd_TC=sd(Tot.Clms), var_TC=var(Tot.Clms), quantile_TC=quantile(Tot.Clms),
+                       min_TC=min(Tot.Clms), max_TC=max(Tot.Clms), distinct_TC=n_distinct(Tot.Clms)) %>% glimpse
+
+#Table of Summary Statistics 
+library(kableExtra)
+tab <- matrix(c(6291342, 31017039, 962056694346662, 0, 2220257430, 20275, 23518638, 100751607, 10150886288481036, 0.173, 1581265868, 19622, 390727.5, 1341663, 1800058426202, 11, 15314041, 12741), ncol=6, byrow=TRUE)
+colnames(tab) <- c("mean", "sd", "var", "min", "max", "distinct")
+rownames(tab) <- c("Total Spending", "Total Dosage Units", "Total Claims")
+tab %>% kbl(caption="Summary Statistics of Numeric Variables of Drug Data") %>% kable_styling()
+
+#Table of Quantiles
+tab1 <- matrix(c(0, 34032.08, 527064.62, 3364581, 2220257430, 0.173, 40085.500, 832861, 8773633.955, 1581265868, 11, 1317, 18605, 185325, 15314041), ncol=5, byrow=TRUE)
+colnames(tab1) <- c("0", "0.25", "0.50", "0.75", "100.0")
+rownames(tab1) <- c("Total Spending", "Total Dosage Units", "Total Claims")
+tab1 %>% kbl(caption="Quantiles of Numeric Variables of Drug Data") %>% kable_styling()
+
+my_kable = function(x, max.rows=6, ...) {
+  kable(x[1:max.rows, ], ...)
+}
+
+fulldata %>% group_by(Year) %>% summarize(n=n()) %>% kbl(caption="Counts of Entries per Year") %>% kable_styling()
+
+fulldata %>% group_by(PROPRIETARYNAME) %>% summarize(n=n()) %>% my_kable(caption="Counts of Entries per Drug Name") %>% kable_styling() 
+
+fulldata %>% group_by(PRODUCTTYPENAME) %>% summarize(n=n()) %>% my_kable(caption="Counts of Entries per Drug Type") %>% kable_styling()
+
+fulldata %>% group_by(ROUTENAME) %>% summarize(n=n()) %>% my_kable(caption="Counts of Entries per Drug Route") %>% kable_styling()
+
+fulldata %>% count(NA) %>% kbl(caption="Counts of NAs") %>% kable_styling()
+
+```
+
+This second wrangling chunk is dedicated to my summary statistics. I only took summary statistics (`mean, sd, var, n, quantile, min, max, n_distinct`, etc) for three of my numeric variables and I grouped 4 of my categorical variables. What I found the most interesting in this chunk of wrangling is the sheer amount of human prescription drugs as compared to the other types of drugs, such as standardized allergenic drugs. I limited the rows of proprietary name, product type and route name as there were too many unique IDs.
 
 #### Visualizing
 
 ```{R}
-# your plot 1
-```
+vx <- fulldata %>% filter(PRODUCTTYPENAME=="VACCINE")
 
-Your discussion of plot 1
+vx %>% ggplot(aes(x=Year, y=Tot.Spndng)) + geom_boxplot() + labs(title = "Total Spending on Vaccines over Time", y="Total Spending($)", x="Year") + theme_bw() + scale_y_continuous(breaks=seq(0,3000000, 500000)) 
+```
+I was curious to see if Medicaid spending on vaccines increased or decreased over time and was predicting that spending would increase especially in the year 2019. I was surprised to see that the mean spending for the years 2015-2019 did not drastically change even with the outliers present in the year 2017.  
 
 ```{R}
-# your plot 2
+fulldata %>% ggplot(aes(x= Tot.Clms, y=Tot.Spndng)) + geom_point() + geom_smooth(aes(group=PRODUCTTYPENAME, color=PRODUCTTYPENAME), method="lm") + scale_y_continuous(breaks=seq(0,2000000000,500000000)) + scale_x_continuous(breaks=seq(0,15000000,2500000)) + theme_bw() + labs(title="Total Claims vs. Total Spending", x="Number of Total Claims", y="Total Spending($)")
+
+fulldata %>% na.omit() %>% group_by(PROPRIETARYNAME) %>% summarize(max=max(Tot.Spndng)) %>% arrange(desc(max))
+
 ```
 
-Your discussion of plot 2
+I was also really curious to see the relationship between total claims, the number of prescription fills for each drug every year, and total spending, aggregate drug spending for the Medicaid program during the benefit year. There seems to be a positive relationship where as total claims increase, total spending increases as well. I was also interested in looking at the drug with the most total spending and found it to be Harvoni. Harvoni is a medication used to treat hepatitis C.
 
 ```{R}
-# your plot 3
+otc <- fulldata %>% filter(PROPRIETARYNAME=="Fentanyl")
+
+otc %>% ggplot(aes(x=Year, fill=Year, y=Tot.Spndng)) + geom_bar(stat="summary") + labs(title = "Total Spending on Fentanyl over Time", y="Total Spending($)", x="Year") + geom_errorbar(stat="summary", width=0.5) + scale_fill_brewer() + scale_y_continuous(breaks=seq(0,15000000,2500000)) + theme_bw()
 ```
 
-Your discussion of plot 3
+This last plot is a bar chart on the total spending on Fentanyl over time and how spending for this drug has changed over time. Total spending on Fentanyl has been shown to gradually decrease from the year 2015 to the year 2019. 
 
 #### Concluding Remarks
 
-If any!
-
-
-
-
+Looking at the relationships in Medicaid spending has been interesting. The overall total spending has gradually decreased since 2015 and has followed this trend regardless of whatever specific drug. While my prediction that spending would increase was wrong, I stil found it especially interesting how vaccine spending has maintained the same mean throughout the years, despite vaccines being pushed for the past few years. 

@@ -1,0 +1,4303 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Project 1: Wrangling, Exploration, Visualization},
+  pdfauthor={SDS322E},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+\title{Project 1: Wrangling, Exploration, Visualization}
+\author{SDS322E}
+\date{October 23, 2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{data-wrangling-exploration-visualization}{%
+\subsection{Data Wrangling, Exploration,
+Visualization}\label{data-wrangling-exploration-visualization}}
+
+\hypertarget{louise-mendoza}{%
+\subsubsection{Louise Mendoza}\label{louise-mendoza}}
+
+\hypertarget{introduction}{%
+\paragraph{Introduction}\label{introduction}}
+
+The two datasets I selected are ``drug\_product'' and
+``drug\_medicaid''. ``drug\_product'' is a dataset that contains the
+name of the drug, its dosage form, and the drug route.
+``drug\_medicaid'' is a dataset that contains the name of the drug and
+the spending information for the drugs that are paid through the
+Medicaid program. This dataset focuses on the average spending per
+dosage unit and change in average spending per dosage unit over time. My
+interest in these two datasets are to see any correlations between drug
+route/dosage form and if there is an increase in Medicaid spending due
+to these variables. My predictions and potential associations are that
+total drug spending has increased over the years, and that spending on
+vaccines has also increased due to COVID-19.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{drug_product <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"~/project1/Drugs_product.csv"}\NormalTok{)}
+\NormalTok{drug_medicaid <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"~/project1/M.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tidying-reshaping}{%
+\paragraph{Tidying: Reshaping}\label{tidying-reshaping}}
+
+If your datasets are tidy already, demonstrate that you can reshape data
+with pivot wider/longer here (e.g., untidy and then retidy).
+Alternatively, it may be easier to wait until the wrangling section so
+you can reshape your summary statistics. Note here if you are going to
+do this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{drug_medicaid <-}\StringTok{ }\NormalTok{drug_medicaid }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{8}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{14}\OperatorTok{:}\DecValTok{16}\NormalTok{, }\DecValTok{20}\OperatorTok{:}\DecValTok{22}\NormalTok{, }
+    \DecValTok{26}\OperatorTok{:}\DecValTok{28}\NormalTok{, }\DecValTok{32}\OperatorTok{:}\DecValTok{36}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}\DecValTok{5}\OperatorTok{:}\DecValTok{19}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{separate}\NormalTok{(name, }
+    \KeywordTok{c}\NormalTok{(}\StringTok{"TypeofMetric"}\NormalTok{, }\StringTok{"Metric"}\NormalTok{, }\StringTok{"Year"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{unite}\NormalTok{(TypeofMetric, }
+\NormalTok{    Metric, }\DataTypeTok{col =} \StringTok{"Metric"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{"."}\NormalTok{)}
+
+\NormalTok{drug_product <-}\StringTok{ }\NormalTok{drug_product }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\OperatorTok{:}\DecValTok{12}\NormalTok{, }\DecValTok{18}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+To tidy the two datasets, I realized that the original drug medicaid
+dataset had the different columns for spending/claims/dosage units for
+each year so I did a pivot longer to be able to separate the type of
+metric by year. I also worked on deleting some of the columns from the
+drug product dataset that were making the dataset hard to understand.
+
+\hypertarget{joiningmerging}{%
+\paragraph{Joining/Merging}\label{joiningmerging}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{drug_product }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{n_distinct}\NormalTok{(PROPRIETARYNAME))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   `n_distinct(PROPRIETARYNAME)`
+##                           <int>
+## 1                         43730
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{drug_medicaid }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{n_distinct}\NormalTok{(Brnd_Name))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   `n_distinct(Brnd_Name)`
+##                     <int>
+## 1                    4289
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata <-}\StringTok{ }\NormalTok{drug_product }\OperatorTok{%>%}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(drug_medicaid, }\DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{PROPRIETARYNAME =} \StringTok{"Brnd_Name"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"Metric"}\NormalTok{, }\DataTypeTok{values_from =} \StringTok{"value"}\NormalTok{)}
+
+\KeywordTok{sapply}\NormalTok{(fulldata, class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           PRODUCTTYPENAME           PROPRIETARYNAME        NONPROPRIETARYNAME 
+##               "character"               "character"               "character" 
+##            DOSAGEFORMNAME                 ROUTENAME               LABELERNAME 
+##               "character"               "character"               "character" 
+##             SUBSTANCENAME ACTIVE_NUMERATOR_STRENGTH        ACTIVE_INGRED_UNIT 
+##               "character"               "character"               "character" 
+##             PHARM_CLASSES                 Gnrc_Name                  Tot_Mftr 
+##               "character"               "character"                 "numeric" 
+##                 Mftr_Name                      Year                Tot.Spndng 
+##               "character"               "character"                    "list" 
+##              Tot.Dsg.Unts                  Tot.Clms 
+##                    "list"                    "list"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata <-}\StringTok{ }\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{unnest}\NormalTok{(Tot.Spndng, Tot.Dsg.Unts, Tot.Clms)}
+
+\NormalTok{antifulldata <-}\StringTok{ }\NormalTok{drug_product }\OperatorTok{%>%}\StringTok{ }\KeywordTok{anti_join}\NormalTok{(drug_medicaid, }\DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{PROPRIETARYNAME =} \StringTok{"Brnd_Name"}\NormalTok{))}
+
+\KeywordTok{glimpse}\NormalTok{(antifulldata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 96,057
+## Columns: 10
+## $ PRODUCTTYPENAME           <chr> "HUMAN PRESCRIPTION DRUG", "HUMAN PRESCRI...
+## $ PROPRIETARYNAME           <chr> "Amyvid", "TALTZ", "AXIRON", "AXIRON", "Z...
+## $ NONPROPRIETARYNAME        <chr> "Florbetapir F 18", "ixekizumab", "testos...
+## $ DOSAGEFORMNAME            <chr> "INJECTION, SOLUTION", "INJECTION, SOLUTI...
+## $ ROUTENAME                 <chr> "INTRAVENOUS", "SUBCUTANEOUS", "TOPICAL",...
+## $ LABELERNAME               <chr> "Eli Lilly and Company", "Eli Lilly and C...
+## $ SUBSTANCENAME             <chr> "FLORBETAPIR F-18", "IXEKIZUMAB", "TESTOS...
+## $ ACTIVE_NUMERATOR_STRENGTH <chr> "51", "80", "30", "30", "2.5", "5", "7.5"...
+## $ ACTIVE_INGRED_UNIT        <chr> "mCi/mL", "mg/mL", "mg/1.5mL", "mg/1.5mL"...
+## $ PHARM_CLASSES             <chr> "Radioactive Diagnostic Agent [EPC],Posit...
+\end{verbatim}
+
+I joined the two datasets by the brand names of the drugs listed in each
+dataset, using an inner\_join to remove any rows without a match. I did
+a pivot\_wider step here as I felt as though the full, joined dataset
+was hard to read with the pivot\_longer step done previously. I also
+determined that my numeric values were being read as lists, so I
+unnested them so they could be read as numeric values.
+
+In the medicaid dataset, there were 237,885 rows with 7 columns and 4289
+unique drugs while in the drug product dataset, there were 117,365 rows
+and 10 columns and 43730 unique drugs. After doing the inner join and
+pivot wider, the full dataset has 1,127,695 rows and 17 columns, which
+has a significantly larger amount of rows than the two original
+datasets. The distinct IDs from the medicaid dataset were: total
+spending, total dosage units, total claims, manufacturer name, and total
+manufacturers. The distinct IDs from the drug product dataset were: the
+dosage form name, route name, labeler name, active ingredient unit, and
+pharmacy class. The IDs that the datasets have in common were the brand
+and generic name of the drug. 96,057 rows were dropped and potential
+problems could be that the trends are not representative of the full
+dataset since so many rows were dropped.
+
+\hypertarget{wrangling}{%
+\paragraph{Wrangling}\label{wrangling}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Average total spending in the year 2018 of drugs}
+\CommentTok{# administered subcutaneously}
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{2018}\NormalTok{, ROUTENAME }\OperatorTok{==}\StringTok{ }
+\StringTok{    "SUBCUTANEOUS"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{mean}\NormalTok{(Tot.Spndng))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   `mean(Tot.Spndng)`
+##                <dbl>
+## 1          38670818.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Drug with greatest dosage form in the year 2015}
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Year }\OperatorTok{==}\StringTok{ }\DecValTok{2015}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(DOSAGEFORMNAME) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 78
+## Columns: 2
+## $ DOSAGEFORMNAME <chr> "TABLET", "TABLET, FILM COATED", "CAPSULE", "INJECTI...
+## $ n              <int> 64543, 27295, 19016, 5288, 3853, 2914, 2869, 2346, 2...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Determination of spending per dosage unit}
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{spndng.per.dsg.unts =}\NormalTok{ Tot.Spndng}\OperatorTok{/}\NormalTok{Tot.Dsg.Unts) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 18
+##   PRODUCTTYPENAME PROPRIETARYNAME NONPROPRIETARYN~ DOSAGEFORMNAME ROUTENAME
+##   <chr>           <chr>           <chr>            <chr>          <chr>    
+## 1 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## 2 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## 3 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## 4 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## 5 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## 6 HUMAN PRESCRIP~ Quinidine Gluc~ Quinidine Gluco~ SOLUTION       INTRAVEN~
+## # ... with 13 more variables: LABELERNAME <chr>, SUBSTANCENAME <chr>,
+## #   ACTIVE_NUMERATOR_STRENGTH <chr>, ACTIVE_INGRED_UNIT <chr>,
+## #   PHARM_CLASSES <chr>, Gnrc_Name <chr>, Tot_Mftr <dbl>, Mftr_Name <chr>,
+## #   Year <chr>, Tot.Spndng <dbl>, Tot.Dsg.Unts <dbl>, Tot.Clms <dbl>,
+## #   spndng.per.dsg.unts <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Matching all the drugs that begin with Tr}
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(PROPRIETARYNAME) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_match_all}\NormalTok{(}\StringTok{"Tr[^ ]+"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 1
+##  $ : chr [1:1839, 1] "Trulicity\"," "Trulicity\"," "Trulicity\"," "Trulicity\"," ...
+\end{verbatim}
+
+I used this first section of wrangling to use the dplyr functions
+(\texttt{filter,\ select,\ arrange,\ group\_by,\ mutate,\ summarize}) to
+manipulate and explore my dataset. I used variables that I was
+interested in such as the type of drug route and total spending and used
+these variables to explore patterns and relationships in my dataset.
+What I found the most interesting in this set of dplyr functions is how
+the drug type/form that is most used is the tablet form.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Summary statistics}
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_TS =} \KeywordTok{mean}\NormalTok{(Tot.Spndng), }
+    \DataTypeTok{sd_TS =} \KeywordTok{sd}\NormalTok{(Tot.Spndng), }\DataTypeTok{var_TS =} \KeywordTok{var}\NormalTok{(Tot.Spndng), }\DataTypeTok{quantile_TS =} \KeywordTok{quantile}\NormalTok{(Tot.Spndng), }
+    \DataTypeTok{min_TS =} \KeywordTok{min}\NormalTok{(Tot.Spndng), }\DataTypeTok{max_TS =} \KeywordTok{max}\NormalTok{(Tot.Spndng), }\DataTypeTok{distinct_TS =} \KeywordTok{n_distinct}\NormalTok{(Tot.Spndng)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 5
+## Columns: 7
+## $ mean_TS     <dbl> 6291342, 6291342, 6291342, 6291342, 6291342
+## $ sd_TS       <dbl> 31017039, 31017039, 31017039, 31017039, 31017039
+## $ var_TS      <dbl> 9.620567e+14, 9.620567e+14, 9.620567e+14, 9.620567e+14,...
+## $ quantile_TS <dbl> 0.000000e+00, 3.403208e+04, 5.270646e+05, 3.364581e+06,...
+## $ min_TS      <dbl> 0, 0, 0, 0, 0
+## $ max_TS      <dbl> 2220257430, 2220257430, 2220257430, 2220257430, 2220257430
+## $ distinct_TS <int> 20275, 20275, 20275, 20275, 20275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_TD =} \KeywordTok{mean}\NormalTok{(Tot.Dsg.Unts), }
+    \DataTypeTok{sd_TD =} \KeywordTok{sd}\NormalTok{(Tot.Dsg.Unts), }\DataTypeTok{var_TD =} \KeywordTok{var}\NormalTok{(Tot.Dsg.Unts), }\DataTypeTok{quantile_TD =} \KeywordTok{quantile}\NormalTok{(Tot.Dsg.Unts), }
+    \DataTypeTok{min_TD =} \KeywordTok{min}\NormalTok{(Tot.Dsg.Unts), }\DataTypeTok{max_TD =} \KeywordTok{max}\NormalTok{(Tot.Dsg.Unts), }\DataTypeTok{distinct_TD =} \KeywordTok{n_distinct}\NormalTok{(Tot.Dsg.Unts)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 5
+## Columns: 7
+## $ mean_TD     <dbl> 23518638, 23518638, 23518638, 23518638, 23518638
+## $ sd_TD       <dbl> 100751607, 100751607, 100751607, 100751607, 100751607
+## $ var_TD      <dbl> 1.015089e+16, 1.015089e+16, 1.015089e+16, 1.015089e+16,...
+## $ quantile_TD <dbl> 1.730000e-01, 4.008550e+04, 8.328610e+05, 8.773634e+06,...
+## $ min_TD      <dbl> 0.173, 0.173, 0.173, 0.173, 0.173
+## $ max_TD      <dbl> 1581265868, 1581265868, 1581265868, 1581265868, 1581265868
+## $ distinct_TD <int> 19622, 19622, 19622, 19622, 19622
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_TC =} \KeywordTok{mean}\NormalTok{(Tot.Clms), }
+    \DataTypeTok{sd_TC =} \KeywordTok{sd}\NormalTok{(Tot.Clms), }\DataTypeTok{var_TC =} \KeywordTok{var}\NormalTok{(Tot.Clms), }\DataTypeTok{quantile_TC =} \KeywordTok{quantile}\NormalTok{(Tot.Clms), }
+    \DataTypeTok{min_TC =} \KeywordTok{min}\NormalTok{(Tot.Clms), }\DataTypeTok{max_TC =} \KeywordTok{max}\NormalTok{(Tot.Clms), }\DataTypeTok{distinct_TC =} \KeywordTok{n_distinct}\NormalTok{(Tot.Clms)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{glimpse}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 5
+## Columns: 7
+## $ mean_TC     <dbl> 390727.5, 390727.5, 390727.5, 390727.5, 390727.5
+## $ sd_TC       <dbl> 1341663, 1341663, 1341663, 1341663, 1341663
+## $ var_TC      <dbl> 1.800058e+12, 1.800058e+12, 1.800058e+12, 1.800058e+12,...
+## $ quantile_TC <dbl> 11, 1317, 18605, 185325, 15314041
+## $ min_TC      <dbl> 11, 11, 11, 11, 11
+## $ max_TC      <dbl> 15314041, 15314041, 15314041, 15314041, 15314041
+## $ distinct_TC <int> 12741, 12741, 12741, 12741, 12741
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Table of Summary Statistics}
+\KeywordTok{library}\NormalTok{(kableExtra)}
+\NormalTok{tab <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{6291342}\NormalTok{, }\DecValTok{31017039}\NormalTok{, }\DecValTok{962056694346662}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2220257430}\NormalTok{, }
+    \DecValTok{20275}\NormalTok{, }\DecValTok{23518638}\NormalTok{, }\DecValTok{100751607}\NormalTok{, }\DecValTok{10150886288481036}\NormalTok{, }\FloatTok{0.173}\NormalTok{, }\DecValTok{1581265868}\NormalTok{, }
+    \DecValTok{19622}\NormalTok{, }\FloatTok{390727.5}\NormalTok{, }\DecValTok{1341663}\NormalTok{, }\DecValTok{1800058426202}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{15314041}\NormalTok{, }\DecValTok{12741}\NormalTok{), }
+    \DataTypeTok{ncol =} \DecValTok{6}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(tab) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"var"}\NormalTok{, }\StringTok{"min"}\NormalTok{, }\StringTok{"max"}\NormalTok{, }\StringTok{"distinct"}\NormalTok{)}
+\KeywordTok{rownames}\NormalTok{(tab) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Total Spending"}\NormalTok{, }\StringTok{"Total Dosage Units"}\NormalTok{, }\StringTok{"Total Claims"}\NormalTok{)}
+\NormalTok{tab }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Summary Statistics of Numeric Variables of Drug Data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Summary Statistics of Numeric Variables of Drug Data}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+  & mean & sd & var & min & max & distinct\\
+\hline
+Total Spending & 6291342.0 & 31017039 & 9.620567e+14 & 0.000 & 2220257430 & 20275\\
+\hline
+Total Dosage Units & 23518638.0 & 100751607 & 1.015089e+16 & 0.173 & 1581265868 & 19622\\
+\hline
+Total Claims & 390727.5 & 1341663 & 1.800058e+12 & 11.000 & 15314041 & 12741\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Table of Quantiles}
+\NormalTok{tab1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{34032.08}\NormalTok{, }\FloatTok{527064.62}\NormalTok{, }\DecValTok{3364581}\NormalTok{, }\DecValTok{2220257430}\NormalTok{, }
+    \FloatTok{0.173}\NormalTok{, }\FloatTok{40085.5}\NormalTok{, }\DecValTok{832861}\NormalTok{, }\FloatTok{8773633.955}\NormalTok{, }\DecValTok{1581265868}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{1317}\NormalTok{, }
+    \DecValTok{18605}\NormalTok{, }\DecValTok{185325}\NormalTok{, }\DecValTok{15314041}\NormalTok{), }\DataTypeTok{ncol =} \DecValTok{5}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(tab1) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"0"}\NormalTok{, }\StringTok{"0.25"}\NormalTok{, }\StringTok{"0.50"}\NormalTok{, }\StringTok{"0.75"}\NormalTok{, }\StringTok{"100.0"}\NormalTok{)}
+\KeywordTok{rownames}\NormalTok{(tab1) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Total Spending"}\NormalTok{, }\StringTok{"Total Dosage Units"}\NormalTok{, }\StringTok{"Total Claims"}\NormalTok{)}
+\NormalTok{tab1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Quantiles of Numeric Variables of Drug Data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Quantiles of Numeric Variables of Drug Data}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+  & 0 & 0.25 & 0.50 & 0.75 & 100.0\\
+\hline
+Total Spending & 0.000 & 34032.08 & 527064.6 & 3364581 & 2220257430\\
+\hline
+Total Dosage Units & 0.173 & 40085.50 & 832861.0 & 8773634 & 1581265868\\
+\hline
+Total Claims & 11.000 & 1317.00 & 18605.0 & 185325 & 15314041\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(Year) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Counts of Entries per Year"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Counts of Entries per Year}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+Year & n\\
+\hline
+2015 & 225539\\
+\hline
+2016 & 225539\\
+\hline
+2017 & 225539\\
+\hline
+2018 & 225539\\
+\hline
+2019 & 225539\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(PROPRIETARYNAME) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Counts of Entries per Drug Name"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Counts of Entries per Drug Name}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+PROPRIETARYNAME & n\\
+\hline
+Abacavir & 320\\
+\hline
+Absorica & 60\\
+\hline
+Abstral & 180\\
+\hline
+Acamprosate Calcium & 280\\
+\hline
+Acarbose & 1150\\
+\hline
+Accolate & 20\\
+\hline
+Accupril & 70\\
+\hline
+Acephen & 20\\
+\hline
+Acetaminophen & 3425\\
+\hline
+Acetaminophen 8 Hour & 20\\
+\hline
+Acetazolamide & 595\\
+\hline
+Acid Reducer & 440\\
+\hline
+Aciphex & 10\\
+\hline
+Acitretin & 510\\
+\hline
+Acthrel & 10\\
+\hline
+Actigall & 15\\
+\hline
+Activase & 20\\
+\hline
+Activella & 40\\
+\hline
+Actonel & 70\\
+\hline
+Actos & 160\\
+\hline
+Acular & 10\\
+\hline
+Acyclovir Sodium & 60\\
+\hline
+Adagen & 10\\
+\hline
+Adapalene & 495\\
+\hline
+Adderall & 200\\
+\hline
+Adempas & 50\\
+\hline
+Adenocard & 30\\
+\hline
+Adenoscan & 10\\
+\hline
+Adenosine & 1000\\
+\hline
+Adrenalin & 20\\
+\hline
+Adriamycin & 40\\
+\hline
+Adrucil & 30\\
+\hline
+Adzenys ER & 10\\
+\hline
+Adzenys XR-ODT & 60\\
+\hline
+Aerospan & 20\\
+\hline
+Afinitor & 70\\
+\hline
+Afirmelle & 10\\
+\hline
+Afrezza & 120\\
+\hline
+Afrin & 120\\
+\hline
+Aggrenox & 40\\
+\hline
+Agrylin & 10\\
+\hline
+Akten & 10\\
+\hline
+Albumin (Human) & 90\\
+\hline
+Albuminar-25 & 10\\
+\hline
+Albuminar-5 & 10\\
+\hline
+Alcaine & 10\\
+\hline
+Alclometasone Dipropionate & 120\\
+\hline
+Alcohol Prep Pads & 150\\
+\hline
+Aldactone & 30\\
+\hline
+Aldara & 10\\
+\hline
+Alendronate Sodium & 4160\\
+\hline
+Alimta & 20\\
+\hline
+Alinia & 60\\
+\hline
+All Day Allergy & 210\\
+\hline
+Allergy Medicine & 30\\
+\hline
+Allergy Relief & 4000\\
+\hline
+Allopurinol & 8800\\
+\hline
+Allzital & 10\\
+\hline
+Almotriptan Malate & 120\\
+\hline
+Alogliptin & 30\\
+\hline
+Alora & 60\\
+\hline
+Aloxi & 30\\
+\hline
+Alphanate & 50\\
+\hline
+Alprazolam & 16050\\
+\hline
+Alprostadil & 10\\
+\hline
+Altoprev & 50\\
+\hline
+Alunbrig & 10\\
+\hline
+Alvesco & 60\\
+\hline
+Ambien & 110\\
+\hline
+Amcinonide & 40\\
+\hline
+Amethia & 30\\
+\hline
+Amethia Lo & 20\\
+\hline
+Amethyst & 10\\
+\hline
+Amidate & 30\\
+\hline
+Amikacin Sulfate & 240\\
+\hline
+Aminophylline & 220\\
+\hline
+Aminosyn II & 50\\
+\hline
+Amitiza & 80\\
+\hline
+Amlodipine Besylate & 24570\\
+\hline
+Ammonium Lactate & 200\\
+\hline
+Amnesteem & 60\\
+\hline
+Amoxapine & 40\\
+\hline
+Amoxicillin & 13680\\
+\hline
+Amphotericin B & 10\\
+\hline
+Ampicillin Trihydrate & 30\\
+\hline
+Amrix & 30\\
+\hline
+Amytal Sodium & 10\\
+\hline
+Anadrol-50 & 10\\
+\hline
+Anastrozole & 2240\\
+\hline
+Androderm & 60\\
+\hline
+Androgel & 70\\
+\hline
+Anectine & 30\\
+\hline
+Angeliq & 30\\
+\hline
+Angiomax & 20\\
+\hline
+Anoro Ellipta & 10\\
+\hline
+Antabuse & 30\\
+\hline
+Antacid & 940\\
+\hline
+Antara & 20\\
+\hline
+Anti-Diarrheal & 450\\
+\hline
+Anti-Itch & 130\\
+\hline
+Apidra & 10\\
+\hline
+Aplenzin & 40\\
+\hline
+Aplisol & 30\\
+\hline
+Aprepitant & 60\\
+\hline
+Apri & 10\\
+\hline
+Aptiom & 50\\
+\hline
+Aptivus & 20\\
+\hline
+Aranelle & 10\\
+\hline
+Arava & 40\\
+\hline
+Arcalyst & 10\\
+\hline
+Arcapta Neohaler & 10\\
+\hline
+Aricept & 120\\
+\hline
+Aripiprazole & 15840\\
+\hline
+Aristospan & 20\\
+\hline
+Arixtra & 40\\
+\hline
+Armodafinil & 920\\
+\hline
+Armour Thyroid & 130\\
+\hline
+Arnuity Ellipta & 20\\
+\hline
+Aromasin & 20\\
+\hline
+Arranon & 15\\
+\hline
+Arthritis Pain Relief & 15\\
+\hline
+Artificial Tears & 130\\
+\hline
+Asclera & 20\\
+\hline
+Ashlyna & 10\\
+\hline
+Asmanex & 10\\
+\hline
+Aspirin & 4480\\
+\hline
+Aspirin EC & 80\\
+\hline
+Astepro & 10\\
+\hline
+Atelvia & 10\\
+\hline
+Atenolol & 13090\\
+\hline
+Atorvastatin Calcium & 10780\\
+\hline
+Atovaquone & 35\\
+\hline
+Atracurium Besylate & 180\\
+\hline
+Atralin & 10\\
+\hline
+Atripla & 50\\
+\hline
+Aubagio & 20\\
+\hline
+Augmentin & 15\\
+\hline
+Aurovela 24 Fe & 10\\
+\hline
+Auryxia & 10\\
+\hline
+Austedo & 30\\
+\hline
+Avalide & 50\\
+\hline
+Avandia & 30\\
+\hline
+Avapro & 30\\
+\hline
+Avar & 10\\
+\hline
+Avastin & 20\\
+\hline
+Aveed & 10\\
+\hline
+Aviane & 30\\
+\hline
+Avita & 20\\
+\hline
+Avodart & 10\\
+\hline
+Aygestin & 10\\
+\hline
+Ayuna & 10\\
+\hline
+Azacitidine & 675\\
+\hline
+Azasan & 20\\
+\hline
+Azathioprine & 600\\
+\hline
+Azelaic Acid & 30\\
+\hline
+Azilect & 40\\
+\hline
+Azopt & 10\\
+\hline
+Azor & 60\\
+\hline
+Aztreonam & 120\\
+\hline
+Azulfidine & 20\\
+\hline
+Azurette & 30\\
+\hline
+Balsalazide Disodium & 225\\
+\hline
+Balziva & 10\\
+\hline
+Banzel & 30\\
+\hline
+Bekyree & 20\\
+\hline
+Belbuca & 105\\
+\hline
+Beleodaq & 10\\
+\hline
+Belviq & 10\\
+\hline
+Benazepril HCl & 60\\
+\hline
+Benicar & 160\\
+\hline
+Benicar HCT & 40\\
+\hline
+Bensal HP & 10\\
+\hline
+Bentyl & 30\\
+\hline
+Benzaclin & 10\\
+\hline
+Benzamycin & 10\\
+\hline
+Benzonatate & 5040\\
+\hline
+Bepreve & 10\\
+\hline
+Berinert & 10\\
+\hline
+Besivance & 20\\
+\hline
+Besponsa & 10\\
+\hline
+Betadine & 80\\
+\hline
+Betamethasone Dipropionate & 1600\\
+\hline
+Betamethasone Valerate & 1300\\
+\hline
+Betapace & 30\\
+\hline
+Betaseron & 20\\
+\hline
+Bethanechol Chloride & 2025\\
+\hline
+Betoptic S & 10\\
+\hline
+Bexarotene & 60\\
+\hline
+Beyaz & 10\\
+\hline
+Bicalutamide & 560\\
+\hline
+Biltricide & 40\\
+\hline
+Binosto & 10\\
+\hline
+Bisacodyl & 345\\
+\hline
+Bismuth & 20\\
+\hline
+Bisoprolol Fumarate & 720\\
+\hline
+Bivalirudin & 250\\
+\hline
+Blisovi 24 Fe & 10\\
+\hline
+Breo Ellipta & 20\\
+\hline
+Brevibloc & 80\\
+\hline
+Brevital Sodium & 20\\
+\hline
+Brimonidine Tartrate & 210\\
+\hline
+Brineura & 10\\
+\hline
+Bromfed DM & 10\\
+\hline
+Bromocriptine Mesylate & 180\\
+\hline
+Brovana & 10\\
+\hline
+Budesonide & 1575\\
+\hline
+Buphenyl & 10\\
+\hline
+Buprenex & 10\\
+\hline
+Buprenorphine & 330\\
+\hline
+Buspirone HCl & 1890\\
+\hline
+Butrans & 80\\
+\hline
+Byetta & 20\\
+\hline
+Bystolic & 110\\
+\hline
+C-Nate DHA & 10\\
+\hline
+Cabergoline & 175\\
+\hline
+Caduet & 210\\
+\hline
+Cafergot & 10\\
+\hline
+Caladryl Clear & 10\\
+\hline
+Calcipotriene & 400\\
+\hline
+Calcitrene & 10\\
+\hline
+Calcium & 120\\
+\hline
+Calcium Acetate & 2625\\
+\hline
+Calcium Antacid & 40\\
+\hline
+Calcium Chloride & 220\\
+\hline
+Calcium Disodium Versenate & 10\\
+\hline
+Calcium Gluconate & 180\\
+\hline
+Caldolor & 10\\
+\hline
+Cambia & 20\\
+\hline
+Camila & 45\\
+\hline
+Camptosar & 40\\
+\hline
+Camrese & 10\\
+\hline
+Canasa & 30\\
+\hline
+Candesartan Cilexetil & 120\\
+\hline
+Capecitabine & 1200\\
+\hline
+Captopril & 2240\\
+\hline
+Carac & 10\\
+\hline
+Carafate & 40\\
+\hline
+Carbaglu & 10\\
+\hline
+Carbamazepine & 3750\\
+\hline
+Carbatrol & 40\\
+\hline
+Carbidopa & 120\\
+\hline
+Carbinoxamine Maleate & 100\\
+\hline
+Carbocaine & 120\\
+\hline
+Carboplatin & 1560\\
+\hline
+Cardene I.V. & 100\\
+\hline
+Cardiolite & 10\\
+\hline
+Cardizem & 60\\
+\hline
+Cardizem CD & 60\\
+\hline
+Cardura & 60\\
+\hline
+Carisoprodol & 4640\\
+\hline
+Carnitor & 30\\
+\hline
+Carnitor SF & 10\\
+\hline
+Carvedilol & 18160\\
+\hline
+Caspofungin Acetate & 120\\
+\hline
+Catapres & 80\\
+\hline
+Cathflo Activase & 10\\
+\hline
+Caverject & 20\\
+\hline
+Cayston & 10\\
+\hline
+Caziant & 20\\
+\hline
+Cefaclor & 500\\
+\hline
+Cefadroxil & 1640\\
+\hline
+Cefdinir & 2880\\
+\hline
+Cefepime & 140\\
+\hline
+Cefixime & 210\\
+\hline
+Cefotan & 10\\
+\hline
+Cefotetan & 75\\
+\hline
+Cefoxitin & 1035\\
+\hline
+Cefpodoxime Proxetil & 420\\
+\hline
+Cefprozil & 1240\\
+\hline
+Ceftazidime & 420\\
+\hline
+Ceftriaxone & 675\\
+\hline
+Cefuroxime & 630\\
+\hline
+Celecoxib & 9975\\
+\hline
+Celexa & 60\\
+\hline
+Celontin & 10\\
+\hline
+Centany & 10\\
+\hline
+Centratex & 10\\
+\hline
+Cephalexin & 10465\\
+\hline
+Cerdelga & 10\\
+\hline
+Cerezyme & 20\\
+\hline
+Cetaphil & 40\\
+\hline
+Cetirizine HCl & 45\\
+\hline
+Cetylev & 30\\
+\hline
+Chantix & 70\\
+\hline
+Chemet & 10\\
+\hline
+Chenodal & 20\\
+\hline
+Chlorhexidine Gluconate & 420\\
+\hline
+Chloroquine Phosphate & 60\\
+\hline
+Chlorothiazide & 150\\
+\hline
+Chlorothiazide Sodium & 60\\
+\hline
+Chlorpheniramine Maleate & 90\\
+\hline
+Chlorpropamide & 30\\
+\hline
+Chlorthalidone & 1080\\
+\hline
+Chlorzoxazone & 180\\
+\hline
+Cholbam & 20\\
+\hline
+Cholestyramine & 180\\
+\hline
+Chorionic Gonadotropin & 30\\
+\hline
+Chromagen & 10\\
+\hline
+Chromium & 15\\
+\hline
+Cialis & 210\\
+\hline
+Ciclopirox & 2310\\
+\hline
+Cidofovir & 15\\
+\hline
+Cilostazol & 910\\
+\hline
+Ciloxan & 20\\
+\hline
+Cimetidine & 840\\
+\hline
+Cimzia & 20\\
+\hline
+Cinryze & 10\\
+\hline
+Cipro & 160\\
+\hline
+Cipro HC & 10\\
+\hline
+Ciprodex & 10\\
+\hline
+Ciprofloxacin & 4175\\
+\hline
+Cisplatin & 600\\
+\hline
+Cladribine & 75\\
+\hline
+Claravis & 70\\
+\hline
+Clarinex & 40\\
+\hline
+Clarinex-D 12 Hour & 10\\
+\hline
+Clarithromycin & 3600\\
+\hline
+Clearlax & 10\\
+\hline
+Clemastine Fumarate & 50\\
+\hline
+Cleocin & 40\\
+\hline
+Cleocin T & 30\\
+\hline
+Cleviprex & 50\\
+\hline
+Climara & 60\\
+\hline
+Climara Pro & 20\\
+\hline
+Clindacin P & 10\\
+\hline
+Clindagel & 10\\
+\hline
+Clindesse & 20\\
+\hline
+Clinisol & 10\\
+\hline
+Clobetasol Propionate & 5280\\
+\hline
+Clobex & 40\\
+\hline
+Clodan & 10\\
+\hline
+Cloderm & 15\\
+\hline
+Clolar & 30\\
+\hline
+Clomiphene Citrate & 40\\
+\hline
+Clonazepam & 11520\\
+\hline
+Clonidine & 500\\
+\hline
+Clopidogrel & 4900\\
+\hline
+Clorazepate Dipotassium & 255\\
+\hline
+Clozapine & 1800\\
+\hline
+Clozaril & 90\\
+\hline
+Coagadex & 20\\
+\hline
+Codeine Sulfate & 60\\
+\hline
+Colchicine & 140\\
+\hline
+Colcrys & 70\\
+\hline
+Colestid & 20\\
+\hline
+Colistimethate & 210\\
+\hline
+Colocort & 10\\
+\hline
+Coly-Mycin S & 10\\
+\hline
+Combivent Respimat & 10\\
+\hline
+Combivir & 10\\
+\hline
+Complete & 80\\
+\hline
+Complete Allergy & 50\\
+\hline
+Compro & 20\\
+\hline
+Comtan & 20\\
+\hline
+Concept DHA & 10\\
+\hline
+Concerta & 40\\
+\hline
+Condylox & 30\\
+\hline
+Constulose & 10\\
+\hline
+Contrave & 20\\
+\hline
+Copaxone & 20\\
+\hline
+Cordran & 50\\
+\hline
+Coreg & 40\\
+\hline
+Corgard & 30\\
+\hline
+Corifact & 10\\
+\hline
+Corlanor & 20\\
+\hline
+Cortifoam & 20\\
+\hline
+Cortisone Acetate & 30\\
+\hline
+Cortisporin & 10\\
+\hline
+Cortrosyn & 20\\
+\hline
+Corvert & 30\\
+\hline
+Cosmegen & 10\\
+\hline
+Cosopt & 10\\
+\hline
+Cosyntropin & 60\\
+\hline
+Cotellic & 10\\
+\hline
+Cotempla XR-ODT & 30\\
+\hline
+Cough Relief & 270\\
+\hline
+Cozaar & 30\\
+\hline
+Cranberry & 50\\
+\hline
+Creon & 90\\
+\hline
+Crestor & 60\\
+\hline
+Crinone & 105\\
+\hline
+Cryselle & 10\\
+\hline
+Cubicin & 10\\
+\hline
+Cuprimine & 10\\
+\hline
+Cutivate & 40\\
+\hline
+Cuvposa & 10\\
+\hline
+Cyclogyl & 30\\
+\hline
+Cyclomydril & 10\\
+\hline
+Cycloserine & 15\\
+\hline
+Cyklokapron & 10\\
+\hline
+Cymbalta & 280\\
+\hline
+Cystadane & 20\\
+\hline
+Cystagon & 20\\
+\hline
+Cysview & 20\\
+\hline
+Cytarabine & 350\\
+\hline
+Cytogam & 10\\
+\hline
+Cytomel & 50\\
+\hline
+Cytotec & 60\\
+\hline
+Dacarbazine & 80\\
+\hline
+Dacogen & 30\\
+\hline
+Daliresp & 30\\
+\hline
+Danazol & 120\\
+\hline
+Dantrolene Sodium & 140\\
+\hline
+Daptomycin & 180\\
+\hline
+Daraprim & 10\\
+\hline
+Daysee & 10\\
+\hline
+Daytrana & 40\\
+\hline
+Decitabine & 300\\
+\hline
+Deferoxamine Mesylate & 100\\
+\hline
+Definity & 10\\
+\hline
+Delestrogen & 30\\
+\hline
+Delsym & 180\\
+\hline
+Delzicol & 30\\
+\hline
+Demerol & 140\\
+\hline
+Demser & 10\\
+\hline
+Denavir & 45\\
+\hline
+Denta 5000 Plus & 20\\
+\hline
+Depacon & 10\\
+\hline
+Depakene & 60\\
+\hline
+Depakote & 200\\
+\hline
+Depo-Estradiol & 20\\
+\hline
+Depo-Medrol & 225\\
+\hline
+Depo-Provera & 60\\
+\hline
+Depo-Testosterone & 90\\
+\hline
+Desloratadine & 360\\
+\hline
+Desmopressin Acetate & 1125\\
+\hline
+Desonide & 1020\\
+\hline
+Desoximetasone & 1400\\
+\hline
+Desoxyn & 10\\
+\hline
+Detrol & 20\\
+\hline
+Dexamethasone & 3350\\
+\hline
+Dexamethasone Intensol & 20\\
+\hline
+Dexamethasone Sodium Phosphate & 740\\
+\hline
+Dexferrum & 20\\
+\hline
+Dexilant & 40\\
+\hline
+Dexmedetomidine HCl & 45\\
+\hline
+Dexrazoxane & 75\\
+\hline
+Dextroamphetamine Sulfate & 1350\\
+\hline
+Dialyvite & 30\\
+\hline
+Dialyvite 3000 & 10\\
+\hline
+Dialyvite 5000 & 10\\
+\hline
+Dialyvite Supreme D & 10\\
+\hline
+Diastat & 30\\
+\hline
+Diclofenac Potassium & 340\\
+\hline
+Dicloxacillin Sodium & 375\\
+\hline
+Didanosine & 150\\
+\hline
+Diethylpropion HCl & 30\\
+\hline
+Differin & 50\\
+\hline
+Dificid & 20\\
+\hline
+Diflorasone Diacetate & 105\\
+\hline
+Diflucan & 80\\
+\hline
+Diflunisal & 120\\
+\hline
+Dilantin & 200\\
+\hline
+Dilantin-125 & 10\\
+\hline
+Dilaudid & 180\\
+\hline
+Dimenhydrinate & 40\\
+\hline
+Diovan & 260\\
+\hline
+Diovan HCT & 240\\
+\hline
+Dipentum & 30\\
+\hline
+Diprivan & 75\\
+\hline
+Disopyramide Phosphate & 200\\
+\hline
+Disulfiram & 360\\
+\hline
+Divalproex Sodium & 10500\\
+\hline
+Divigel & 40\\
+\hline
+Docetaxel & 2560\\
+\hline
+Docusate Calcium & 50\\
+\hline
+Docusate Sodium & 760\\
+\hline
+Dofetilide & 240\\
+\hline
+Donnatal & 170\\
+\hline
+Dopamine HCl & 50\\
+\hline
+Doryx & 20\\
+\hline
+Dorzolamide HCl & 105\\
+\hline
+Dovonex & 30\\
+\hline
+Doxazosin Mesylate & 1330\\
+\hline
+Doxy 100 & 80\\
+\hline
+Doxycycline Monohydrate & 680\\
+\hline
+Dronabinol & 750\\
+\hline
+Droperidol & 45\\
+\hline
+Dry Eye Relief & 30\\
+\hline
+Duavee & 30\\
+\hline
+Dulera & 20\\
+\hline
+Duopa & 10\\
+\hline
+Dupixent & 10\\
+\hline
+Duraclon & 20\\
+\hline
+Duramorph & 20\\
+\hline
+Dutasteride & 840\\
+\hline
+Duzallo & 20\\
+\hline
+Dyanavel XR & 10\\
+\hline
+Dyna-Hex & 20\\
+\hline
+Dysport & 45\\
+\hline
+Ear Drops & 60\\
+\hline
+Ear Wax Removal & 30\\
+\hline
+Econazole Nitrate & 280\\
+\hline
+Edarbi & 20\\
+\hline
+Edarbyclor & 40\\
+\hline
+Edex & 30\\
+\hline
+Edluar & 20\\
+\hline
+Effer-K & 80\\
+\hline
+Effient & 40\\
+\hline
+Efudex & 10\\
+\hline
+Egrifta & 20\\
+\hline
+Elestrin & 20\\
+\hline
+Elidel & 10\\
+\hline
+Elitek & 20\\
+\hline
+Ella & 10\\
+\hline
+Ellence & 20\\
+\hline
+Elmiron & 10\\
+\hline
+Elocon & 10\\
+\hline
+Emcyt & 10\\
+\hline
+Emend & 20\\
+\hline
+Emoquette & 15\\
+\hline
+Emtriva & 50\\
+\hline
+Enablex & 40\\
+\hline
+Enalapril Maleate & 3960\\
+\hline
+Enalaprilat & 75\\
+\hline
+Endari & 10\\
+\hline
+Enema & 30\\
+\hline
+Enoxaparin Sodium & 2300\\
+\hline
+Enpresse & 30\\
+\hline
+Entacapone & 1000\\
+\hline
+Entecavir & 1140\\
+\hline
+Entocort EC & 10\\
+\hline
+Entyvio & 10\\
+\hline
+Enulose & 10\\
+\hline
+Epaned & 10\\
+\hline
+Epclusa & 10\\
+\hline
+Epifoam & 10\\
+\hline
+Epinephrine & 1320\\
+\hline
+Epitol & 10\\
+\hline
+Eplerenone & 480\\
+\hline
+Epoprostenol Sodium & 20\\
+\hline
+Eptifibatide & 240\\
+\hline
+Epzicom & 10\\
+\hline
+Ergocalciferol & 780\\
+\hline
+Ergoloid Mesylates & 20\\
+\hline
+Ergomar & 20\\
+\hline
+Errin & 30\\
+\hline
+Ertaczo & 10\\
+\hline
+Ery & 10\\
+\hline
+Ery-Tab & 20\\
+\hline
+Erythrocin Lactobionate & 20\\
+\hline
+Erythrocin Stearate & 70\\
+\hline
+Erythromycin & 1560\\
+\hline
+Erythromycin Ethylsuccinate & 100\\
+\hline
+Erythromycin-Benzoyl Peroxide & 60\\
+\hline
+Esbriet & 40\\
+\hline
+Escavite & 10\\
+\hline
+Escavite D & 10\\
+\hline
+Escitalopram Oxalate & 3960\\
+\hline
+Esgic & 20\\
+\hline
+Esomeprazole Magnesium & 1750\\
+\hline
+Esomeprazole Sodium & 210\\
+\hline
+Estarylla & 15\\
+\hline
+Estazolam & 135\\
+\hline
+Estring & 30\\
+\hline
+Estropipate & 80\\
+\hline
+Eszopiclone & 2880\\
+\hline
+Ethacrynic Acid & 70\\
+\hline
+Ethosuximide & 315\\
+\hline
+Ethyol & 10\\
+\hline
+Etidronate Disodium & 30\\
+\hline
+Etodolac & 4080\\
+\hline
+Etomidate & 455\\
+\hline
+Eucrisa & 10\\
+\hline
+Eurax & 20\\
+\hline
+Evamist & 30\\
+\hline
+Evekeo & 30\\
+\hline
+Evista & 50\\
+\hline
+Evoxac & 10\\
+\hline
+Exelderm & 20\\
+\hline
+Exelon & 150\\
+\hline
+Exemestane & 160\\
+\hline
+Exforge & 80\\
+\hline
+Exforge HCT & 60\\
+\hline
+Exjade & 30\\
+\hline
+Extra-Virt Plus DHA & 10\\
+\hline
+Eye Drops & 20\\
+\hline
+Eye Itch Relief & 110\\
+\hline
+Ezetimibe & 715\\
+\hline
+Fabior & 10\\
+\hline
+Fabrazyme & 20\\
+\hline
+Fallback Solo & 20\\
+\hline
+Falmina & 10\\
+\hline
+Famciclovir & 1520\\
+\hline
+Famotidine & 4795\\
+\hline
+Fanapt & 135\\
+\hline
+Fareston & 10\\
+\hline
+Febuxostat & 40\\
+\hline
+Felbamate & 1200\\
+\hline
+Felbatol & 30\\
+\hline
+Fem pH & 10\\
+\hline
+Femara & 20\\
+\hline
+Femring & 75\\
+\hline
+Femynor & 10\\
+\hline
+Fenofibrate & 24150\\
+\hline
+Fenofibric Acid & 1260\\
+\hline
+Fenoprofen Calcium & 75\\
+\hline
+Fentanyl & 2200\\
+\hline
+Feraheme & 10\\
+\hline
+Ferralet 90 & 10\\
+\hline
+Ferrlecit & 30\\
+\hline
+Ferrous Sulfate & 510\\
+\hline
+Fetzima & 60\\
+\hline
+Feverall & 50\\
+\hline
+Fexofenadine HCl & 135\\
+\hline
+Fiber & 40\\
+\hline
+Fiber Laxative & 40\\
+\hline
+Finacea & 60\\
+\hline
+Finasteride & 5220\\
+\hline
+Fioricet & 30\\
+\hline
+Fiorinal & 15\\
+\hline
+Firazyr & 10\\
+\hline
+Flagyl & 30\\
+\hline
+Flarex & 10\\
+\hline
+Flecainide Acetate & 1620\\
+\hline
+Flector & 100\\
+\hline
+Flexbumin & 10\\
+\hline
+Flomax & 90\\
+\hline
+Floriva & 80\\
+\hline
+Floriva Plus & 10\\
+\hline
+Floxuridine & 10\\
+\hline
+Fluconazole & 11550\\
+\hline
+Flucytosine & 180\\
+\hline
+Fludarabine Phosphate & 300\\
+\hline
+Fludrocortisone Acetate & 200\\
+\hline
+Flumazenil & 475\\
+\hline
+Flunisolide & 40\\
+\hline
+Fluocinolone Acetonide & 3960\\
+\hline
+Fluocinonide & 5670\\
+\hline
+Fluoride & 120\\
+\hline
+Fluoxetine HCl & 290\\
+\hline
+Fluphenazine Decanoate & 140\\
+\hline
+Flurandrenolide & 100\\
+\hline
+Flurbiprofen & 120\\
+\hline
+Flurbiprofen Sodium & 30\\
+\hline
+Flutamide & 80\\
+\hline
+Fluvastatin Sodium & 90\\
+\hline
+Fluvoxamine Maleate & 630\\
+\hline
+Focalin & 110\\
+\hline
+Folbic & 10\\
+\hline
+Folotyn & 10\\
+\hline
+Foltabs 800 & 10\\
+\hline
+Foltrate & 10\\
+\hline
+Fomepizole & 20\\
+\hline
+Fondaparinux Sodium & 400\\
+\hline
+Formaldehyde & 20\\
+\hline
+Fortamet & 20\\
+\hline
+Forteo & 10\\
+\hline
+Fosamax & 40\\
+\hline
+Fosamprenavir Calcium & 10\\
+\hline
+Fosinopril Sodium & 1040\\
+\hline
+Fosphenytoin Sodium & 240\\
+\hline
+Fosrenol & 70\\
+\hline
+Fragmin & 80\\
+\hline
+Frova & 10\\
+\hline
+Frovatriptan Succinate & 25\\
+\hline
+Furadantin & 10\\
+\hline
+Fusilev & 20\\
+\hline
+Fyavolv & 20\\
+\hline
+Fycompa & 70\\
+\hline
+Gabapentin & 69650\\
+\hline
+Gablofen & 120\\
+\hline
+Gadavist & 20\\
+\hline
+Galantamine Hydrobromide & 100\\
+\hline
+Gammaplex & 20\\
+\hline
+Gamunex-C & 10\\
+\hline
+Gas Relief & 1380\\
+\hline
+Gas-X & 70\\
+\hline
+Gastrocrom & 20\\
+\hline
+Gatifloxacin & 120\\
+\hline
+Gattex & 30\\
+\hline
+Gaviscon & 30\\
+\hline
+Gazyva & 10\\
+\hline
+Gelnique & 15\\
+\hline
+Gemfibrozil & 4575\\
+\hline
+Gemzar & 20\\
+\hline
+Generlac & 10\\
+\hline
+Gengraf & 40\\
+\hline
+Gentak & 50\\
+\hline
+Gentamicin Sulfate & 320\\
+\hline
+Genvoya & 20\\
+\hline
+Geodon & 675\\
+\hline
+Gianvi & 20\\
+\hline
+Gildagia & 10\\
+\hline
+Gilenya & 10\\
+\hline
+Gilotrif & 30\\
+\hline
+Glatopa & 10\\
+\hline
+Gleevec & 50\\
+\hline
+Glimepiride & 8960\\
+\hline
+Glipizide & 9405\\
+\hline
+Glipizide XL & 30\\
+\hline
+Glucotrol & 60\\
+\hline
+Glucotrol XL & 30\\
+\hline
+Glumetza & 40\\
+\hline
+Glyburide & 4750\\
+\hline
+Glycate & 10\\
+\hline
+Glycophos & 10\\
+\hline
+Glyset & 30\\
+\hline
+Glyxambi & 20\\
+\hline
+Gralise & 40\\
+\hline
+Griseofulvin & 330\\
+\hline
+Halaven & 10\\
+\hline
+Halcion & 10\\
+\hline
+Haldol & 10\\
+\hline
+Halobetasol Propionate & 420\\
+\hline
+Halog & 15\\
+\hline
+Haloperidol & 3800\\
+\hline
+Haloperidol Decanoate & 855\\
+\hline
+Harvoni & 10\\
+\hline
+Helixate FS & 50\\
+\hline
+Hemabate & 10\\
+\hline
+Hemmorex-HC & 20\\
+\hline
+Heparin Sodium & 5400\\
+\hline
+Hepsera & 20\\
+\hline
+Herceptin & 30\\
+\hline
+Hetlioz & 10\\
+\hline
+Hizentra & 40\\
+\hline
+Horizant & 30\\
+\hline
+Humalog & 140\\
+\hline
+Humate-P & 30\\
+\hline
+Humira & 130\\
+\hline
+Hydrochlorothiazide & 23115\\
+\hline
+Hydrocortisone & 1350\\
+\hline
+Hydrocortisone Butyrate & 440\\
+\hline
+Hydrocortisone Valerate & 200\\
+\hline
+Hydromet & 10\\
+\hline
+Hydromorphone HCl & 770\\
+\hline
+Hydroquinone & 140\\
+\hline
+Hydroxocobalamin & 10\\
+\hline
+Hydroxychloroquine Sulfate & 1875\\
+\hline
+Hydroxyprogesterone Caproate & 130\\
+\hline
+Hydroxyurea & 100\\
+\hline
+Hydroxyzine Pamoate & 2100\\
+\hline
+Hyosyne & 40\\
+\hline
+Hysingla ER & 70\\
+\hline
+Ibrance & 40\\
+\hline
+Ibuprofen & 56210\\
+\hline
+Ibuprofen Lysine & 20\\
+\hline
+Iclusig & 45\\
+\hline
+Idhifa & 20\\
+\hline
+Iferex 150 Forte & 10\\
+\hline
+Ifosfamide & 275\\
+\hline
+Ilaris & 20\\
+\hline
+Iluvien & 10\\
+\hline
+Imatinib Mesylate & 720\\
+\hline
+Imipramine Pamoate & 195\\
+\hline
+Imiquimod & 315\\
+\hline
+Imlygic & 20\\
+\hline
+Incassia & 10\\
+\hline
+Increlex & 10\\
+\hline
+Incruse Ellipta & 10\\
+\hline
+Indapamide & 450\\
+\hline
+Indigo Carmine & 10\\
+\hline
+Indomethacin & 4275\\
+\hline
+Infed & 15\\
+\hline
+Injectafer & 10\\
+\hline
+Inspra & 30\\
+\hline
+Integra F & 10\\
+\hline
+Integra Plus & 10\\
+\hline
+Integrilin & 60\\
+\hline
+Intelence & 60\\
+\hline
+Intermezzo & 20\\
+\hline
+Intralipid & 70\\
+\hline
+Intrarosa & 10\\
+\hline
+Introvale & 15\\
+\hline
+Intuniv & 70\\
+\hline
+Invirase & 30\\
+\hline
+Iopidine & 10\\
+\hline
+Irbesartan & 3975\\
+\hline
+Iron Chews & 10\\
+\hline
+Isibloom & 15\\
+\hline
+Isoflurane & 30\\
+\hline
+Isolyte S & 20\\
+\hline
+Isopto Atropine & 10\\
+\hline
+Isordil & 20\\
+\hline
+Isosorbide Dinitrate & 2565\\
+\hline
+Isosorbide Mononitrate & 580\\
+\hline
+Isosulfan Blue & 90\\
+\hline
+Isotretinoin & 40\\
+\hline
+Isradipine & 225\\
+\hline
+Istalol & 10\\
+\hline
+Isuprel & 40\\
+\hline
+Itraconazole & 440\\
+\hline
+Ixinity & 110\\
+\hline
+Jadenu & 60\\
+\hline
+Jantoven & 130\\
+\hline
+Jardiance & 40\\
+\hline
+Jencycla & 20\\
+\hline
+Jentadueto & 50\\
+\hline
+Jentadueto XR & 20\\
+\hline
+Jevantique Lo & 10\\
+\hline
+Jevtana & 10\\
+\hline
+Jinteli & 10\\
+\hline
+Jolessa & 20\\
+\hline
+Jolivette & 10\\
+\hline
+Juleber & 10\\
+\hline
+Junel Fe & 10\\
+\hline
+Juxtapid & 60\\
+\hline
+Kadian & 615\\
+\hline
+Kaitlib Fe & 20\\
+\hline
+Kaletra & 120\\
+\hline
+Kalydeco & 30\\
+\hline
+Kapvay & 20\\
+\hline
+Kariva & 10\\
+\hline
+Kcentra & 20\\
+\hline
+Keflex & 30\\
+\hline
+Kenalog-10 & 10\\
+\hline
+Kenalog-40 & 10\\
+\hline
+Kepivance & 10\\
+\hline
+Kerydin & 10\\
+\hline
+Ketalar & 30\\
+\hline
+Ketoprofen & 500\\
+\hline
+Keveyis & 20\\
+\hline
+Kimidess & 10\\
+\hline
+Kineret & 10\\
+\hline
+Kionex & 40\\
+\hline
+Kitabis Pak & 10\\
+\hline
+Klonopin & 70\\
+\hline
+Klor-Con & 210\\
+\hline
+Klor-Con M10 & 15\\
+\hline
+Klor-Con M20 & 15\\
+\hline
+Klor-Con Sprinkle & 60\\
+\hline
+Koate & 120\\
+\hline
+Kogenate FS & 150\\
+\hline
+Korlym & 10\\
+\hline
+Kovaltry & 50\\
+\hline
+Kristalose & 20\\
+\hline
+Krystexxa & 30\\
+\hline
+Kurvelo & 20\\
+\hline
+Kuvan & 30\\
+\hline
+Kyleena & 10\\
+\hline
+L-Methyl-B6-B12 & 10\\
+\hline
+L-Methylfolate Calcium & 10\\
+\hline
+Lacrisert & 10\\
+\hline
+Lactulose & 800\\
+\hline
+Lamivudine & 2100\\
+\hline
+Lamotrigine & 19980\\
+\hline
+Lansoprazole & 6545\\
+\hline
+Lanthanum Carbonate & 45\\
+\hline
+Lantus & 70\\
+\hline
+Lantus Solostar & 20\\
+\hline
+Larin 24 Fe & 10\\
+\hline
+Larissia & 10\\
+\hline
+Lasix & 105\\
+\hline
+Latanoprost & 320\\
+\hline
+Latuda & 60\\
+\hline
+Layolis Fe & 10\\
+\hline
+Lazanda & 30\\
+\hline
+Leena & 20\\
+\hline
+Leflunomide & 630\\
+\hline
+Lenvima & 60\\
+\hline
+Lessina & 10\\
+\hline
+Letairis & 20\\
+\hline
+Letrozole & 495\\
+\hline
+Leukine & 20\\
+\hline
+Leuprolide Acetate & 30\\
+\hline
+Levaquin & 200\\
+\hline
+Levemir & 40\\
+\hline
+Levocarnitine & 75\\
+\hline
+Levocetirizine Dihydrochloride & 1520\\
+\hline
+Levoleucovorin Calcium & 45\\
+\hline
+Levophed & 30\\
+\hline
+Levorphanol Tartrate & 15\\
+\hline
+Lexapro & 200\\
+\hline
+Lialda & 30\\
+\hline
+Librax & 10\\
+\hline
+Lice Killing & 60\\
+\hline
+Lidocaine & 7830\\
+\hline
+Lidoderm & 10\\
+\hline
+Lillow & 10\\
+\hline
+Lincocin & 10\\
+\hline
+Lindane & 40\\
+\hline
+Linezolid & 1740\\
+\hline
+Linzess & 50\\
+\hline
+Liothyronine Sodium & 720\\
+\hline
+Lipitor & 300\\
+\hline
+Lisinopril & 34870\\
+\hline
+Lithium & 45\\
+\hline
+Lithium Carbonate & 3960\\
+\hline
+Lithostat & 10\\
+\hline
+Livalo & 30\\
+\hline
+Lo Loestrin Fe & 10\\
+\hline
+Locoid & 40\\
+\hline
+Locoid Lipocream & 10\\
+\hline
+Lodosyn & 20\\
+\hline
+Lomotil & 30\\
+\hline
+Lopid & 20\\
+\hline
+Lopinavir-Ritonavir & 10\\
+\hline
+Lopreeza & 20\\
+\hline
+Lopressor & 30\\
+\hline
+Loratadine & 1620\\
+\hline
+Lortab & 20\\
+\hline
+Loryna & 15\\
+\hline
+Lorzone & 30\\
+\hline
+Losartan Potassium & 22230\\
+\hline
+Lotemax & 10\\
+\hline
+Lotensin HCT & 50\\
+\hline
+Lotrel & 150\\
+\hline
+Lotrisone & 10\\
+\hline
+Lovastatin & 7980\\
+\hline
+Lovaza & 10\\
+\hline
+Lovenox & 780\\
+\hline
+Low-Ogestrel & 45\\
+\hline
+Loxapine & 750\\
+\hline
+Lumizyme & 10\\
+\hline
+Lunesta & 200\\
+\hline
+Lupaneta Pack & 20\\
+\hline
+Lupron Depot & 60\\
+\hline
+Lutera & 45\\
+\hline
+Luzu & 10\\
+\hline
+Lynparza & 30\\
+\hline
+Lyrica & 740\\
+\hline
+Lysteda & 10\\
+\hline
+M.V.I. Adult & 30\\
+\hline
+M.V.I. Pediatric & 10\\
+\hline
+Macrobid & 20\\
+\hline
+Macrodantin & 30\\
+\hline
+Macugen & 10\\
+\hline
+Mafenide Acetate & 10\\
+\hline
+Magnesium Chloride & 10\\
+\hline
+Magnesium Citrate & 855\\
+\hline
+Magnesium Oxide & 280\\
+\hline
+Magnesium Sulfate & 1470\\
+\hline
+Magnevist & 20\\
+\hline
+Makena & 20\\
+\hline
+Malathion & 30\\
+\hline
+Mannitol & 250\\
+\hline
+Marcaine & 220\\
+\hline
+Marcaine Spinal & 10\\
+\hline
+Marinol & 30\\
+\hline
+Marqibo & 10\\
+\hline
+Matulane & 15\\
+\hline
+Mavyret & 10\\
+\hline
+Maxidex & 10\\
+\hline
+Maxitrol & 10\\
+\hline
+Meclizine HCl & 780\\
+\hline
+Meclofenamate Sodium & 20\\
+\hline
+Medrol & 80\\
+\hline
+Mefenamic Acid & 100\\
+\hline
+Megestrol Acetate & 2660\\
+\hline
+Mekinist & 20\\
+\hline
+Melatonin & 180\\
+\hline
+Melodetta 24 Fe & 10\\
+\hline
+Meloxicam & 5950\\
+\hline
+Melphalan & 10\\
+\hline
+Menactra & 10\\
+\hline
+Menest & 45\\
+\hline
+Menopur & 10\\
+\hline
+Menostar & 10\\
+\hline
+Meperidine HCl & 120\\
+\hline
+Mephyton & 60\\
+\hline
+Meprobamate & 195\\
+\hline
+Mercaptopurine & 100\\
+\hline
+Meropenem & 1300\\
+\hline
+Mesalamine & 100\\
+\hline
+Mesna & 225\\
+\hline
+Mestinon & 30\\
+\hline
+Metadate CD & 140\\
+\hline
+Metadate ER & 20\\
+\hline
+Metaproterenol Sulfate & 30\\
+\hline
+Metaxalone & 2420\\
+\hline
+Metformin HCl & 640\\
+\hline
+Metformin HCl ER & 90\\
+\hline
+Methazolamide & 100\\
+\hline
+Methenamine Hippurate & 245\\
+\hline
+Methenamine Mandelate & 60\\
+\hline
+Methimazole & 1160\\
+\hline
+Methotrexate & 525\\
+\hline
+Methotrexate Sodium & 245\\
+\hline
+Methoxsalen & 45\\
+\hline
+Methscopolamine Bromide & 90\\
+\hline
+Methyldopa & 425\\
+\hline
+Methylene Blue & 20\\
+\hline
+Methylin & 20\\
+\hline
+Methylprednisolone & 1485\\
+\hline
+Methylprednisolone Acetate & 210\\
+\hline
+Metolazone & 600\\
+\hline
+Metoprolol Succinate & 4590\\
+\hline
+Metronidazole & 5010\\
+\hline
+Miacalcin & 20\\
+\hline
+Mibelas 24 Fe & 10\\
+\hline
+Micardis & 70\\
+\hline
+Micardis HCT & 60\\
+\hline
+Miconazole 3 & 100\\
+\hline
+Microgestin & 75\\
+\hline
+Microgestin 24 Fe & 10\\
+\hline
+Microgestin Fe & 15\\
+\hline
+Microzide & 10\\
+\hline
+Midazolam HCl & 440\\
+\hline
+Midodrine HCl & 600\\
+\hline
+Migergot & 20\\
+\hline
+Miglitol & 60\\
+\hline
+Miglustat & 15\\
+\hline
+Migranal & 10\\
+\hline
+Mili & 10\\
+\hline
+Millipred & 20\\
+\hline
+Milrinone Lactate & 160\\
+\hline
+Mimvey & 10\\
+\hline
+Mimvey Lo & 10\\
+\hline
+Minastrin 24 Fe & 20\\
+\hline
+Mineral Oil & 555\\
+\hline
+Minipress & 30\\
+\hline
+Minitran & 80\\
+\hline
+Minivelle & 50\\
+\hline
+Minocin & 75\\
+\hline
+Minoxidil & 600\\
+\hline
+Mirapex & 150\\
+\hline
+Mircera & 225\\
+\hline
+Mircette & 10\\
+\hline
+Mirena & 20\\
+\hline
+Mirtazapine & 12240\\
+\hline
+Mirvaso & 10\\
+\hline
+Misoprostol & 540\\
+\hline
+Mitomycin & 150\\
+\hline
+Mobic & 40\\
+\hline
+Modafinil & 3010\\
+\hline
+Mono-Linyah & 10\\
+\hline
+Mononine & 20\\
+\hline
+Montelukast Sodium & 14400\\
+\hline
+Monurol & 10\\
+\hline
+Morgidox & 60\\
+\hline
+Motofen & 10\\
+\hline
+Moxifloxacin & 330\\
+\hline
+Mozobil & 20\\
+\hline
+Mucinex & 345\\
+\hline
+Mucinex DM & 80\\
+\hline
+Mucus DM & 30\\
+\hline
+Mucus DM Max & 20\\
+\hline
+Mucus ER & 40\\
+\hline
+Mucus Relief DM Max & 70\\
+\hline
+Multaq & 40\\
+\hline
+Multi-Vitamin With Fluoride & 60\\
+\hline
+Multitrace-4 & 10\\
+\hline
+Multitrace-5 & 30\\
+\hline
+Mupirocin & 1080\\
+\hline
+My Way & 30\\
+\hline
+Myalept & 10\\
+\hline
+Myambutol & 40\\
+\hline
+Mycamine & 60\\
+\hline
+Mycobutin & 30\\
+\hline
+Mycophenolate Mofetil & 1440\\
+\hline
+Mycophenolic Acid & 420\\
+\hline
+Myfortic & 30\\
+\hline
+Mylotarg & 10\\
+\hline
+Myobloc & 30\\
+\hline
+Myorisan & 60\\
+\hline
+Myrbetriq & 50\\
+\hline
+Mysoline & 20\\
+\hline
+Myzilra & 20\\
+\hline
+Nabumetone & 4800\\
+\hline
+Nadolol & 3510\\
+\hline
+Nafcillin & 280\\
+\hline
+Naftin & 90\\
+\hline
+Nalfon & 30\\
+\hline
+Namenda & 240\\
+\hline
+Namzaric & 50\\
+\hline
+Naprelan & 60\\
+\hline
+Naproxen & 16640\\
+\hline
+Naproxen Sodium & 6435\\
+\hline
+Nardil & 10\\
+\hline
+Naropin & 250\\
+\hline
+Nascobal & 20\\
+\hline
+Natazia & 20\\
+\hline
+Nateglinide & 600\\
+\hline
+Natroba & 10\\
+\hline
+Natural Fiber & 60\\
+\hline
+Natural Fiber Powder & 30\\
+\hline
+Necon & 150\\
+\hline
+Neo-Synalar & 20\\
+\hline
+Neo-Synephrine & 30\\
+\hline
+Neomycin Sulfate & 125\\
+\hline
+Neoral & 40\\
+\hline
+Nerlynx & 10\\
+\hline
+Nesacaine & 50\\
+\hline
+Nesina & 30\\
+\hline
+Neulasta & 20\\
+\hline
+Neupogen & 30\\
+\hline
+Neupro & 70\\
+\hline
+Neurontin & 80\\
+\hline
+Neut & 10\\
+\hline
+Nevanac & 10\\
+\hline
+Nevirapine & 425\\
+\hline
+Nexavar & 10\\
+\hline
+Nexplanon & 20\\
+\hline
+Nexterone & 20\\
+\hline
+Niacin & 500\\
+\hline
+Niaspan & 200\\
+\hline
+Nicomide & 10\\
+\hline
+Nicotrol & 20\\
+\hline
+Nifedipine & 5160\\
+\hline
+Niferex & 10\\
+\hline
+Nikki & 20\\
+\hline
+Nilutamide & 10\\
+\hline
+Nimbex & 60\\
+\hline
+Nimodipine & 300\\
+\hline
+Nipent & 20\\
+\hline
+Nisoldipine & 225\\
+\hline
+Nitrofurantoin & 1330\\
+\hline
+Nitrostat & 110\\
+\hline
+Nizatidine & 770\\
+\hline
+Nizoral & 20\\
+\hline
+Norco & 150\\
+\hline
+Norepinephrine Bitartrate & 90\\
+\hline
+Norethindrone & 140\\
+\hline
+Norethindrone Acetate & 240\\
+\hline
+Noritate & 10\\
+\hline
+Norlyda & 10\\
+\hline
+Normosol-R & 20\\
+\hline
+Northera & 30\\
+\hline
+Nortrel & 30\\
+\hline
+Norvasc & 80\\
+\hline
+Norvir & 70\\
+\hline
+Novarel & 20\\
+\hline
+Novoeight & 60\\
+\hline
+Nucala & 10\\
+\hline
+Nucynta & 360\\
+\hline
+Nuvessa & 20\\
+\hline
+Nuvigil & 90\\
+\hline
+Nyamyc & 10\\
+\hline
+Nymalize & 20\\
+\hline
+Nystop & 10\\
+\hline
+Ocaliva & 20\\
+\hline
+Octreotide Acetate & 920\\
+\hline
+Odomzo & 10\\
+\hline
+Ofev & 20\\
+\hline
+Ogestrel & 10\\
+\hline
+Olmesartan Medoxomil & 2550\\
+\hline
+Omeclamox-Pak & 20\\
+\hline
+Omeprazole & 17700\\
+\hline
+Omeprazole Magnesium & 190\\
+\hline
+Omidria & 10\\
+\hline
+Omnaris & 30\\
+\hline
+Omnitrope & 30\\
+\hline
+Onfi & 30\\
+\hline
+Onivyde & 20\\
+\hline
+Onmel & 10\\
+\hline
+Opana & 110\\
+\hline
+Opana ER & 20\\
+\hline
+Optison & 10\\
+\hline
+Oracea & 10\\
+\hline
+Oracit & 20\\
+\hline
+Oralair & 50\\
+\hline
+Orbactiv & 15\\
+\hline
+Orfadin & 40\\
+\hline
+Orphenadrine Citrate & 825\\
+\hline
+Orsythia & 15\\
+\hline
+Ortho Micronor & 10\\
+\hline
+Ortho-Novum & 10\\
+\hline
+Oseltamivir Phosphate & 660\\
+\hline
+Osmitrol & 40\\
+\hline
+Osphena & 10\\
+\hline
+Otiprio & 10\\
+\hline
+Otrexup & 80\\
+\hline
+Ovide & 10\\
+\hline
+Ovidrel & 10\\
+\hline
+Oxacillin & 230\\
+\hline
+Oxaliplatin & 4440\\
+\hline
+Oxandrolone & 100\\
+\hline
+Oxaprozin & 480\\
+\hline
+Oxazepam & 425\\
+\hline
+Oxcarbazepine & 2310\\
+\hline
+Oxiconazole Nitrate & 30\\
+\hline
+Oxistat & 30\\
+\hline
+Oxybutynin Chloride & 6225\\
+\hline
+Oxycontin & 10\\
+\hline
+Oxytocin & 500\\
+\hline
+Pacerone & 80\\
+\hline
+Paclitaxel & 1265\\
+\hline
+Pain Relief & 2040\\
+\hline
+Pain Reliever & 570\\
+\hline
+Pamidronate Disodium & 475\\
+\hline
+Panhematin & 20\\
+\hline
+Panretin & 10\\
+\hline
+Paregoric & 10\\
+\hline
+Paromomycin Sulfate & 30\\
+\hline
+Paser & 10\\
+\hline
+Pataday & 10\\
+\hline
+Patanol & 10\\
+\hline
+Pazeo & 10\\
+\hline
+Pedia-Lax & 50\\
+\hline
+Penicillin G Potassium & 105\\
+\hline
+Penicillin G Sodium & 10\\
+\hline
+Penicillin V Potassium & 3080\\
+\hline
+Penlac & 10\\
+\hline
+Pennsaid & 10\\
+\hline
+Pentam 300 & 10\\
+\hline
+Pentasa & 50\\
+\hline
+Pentoxifylline & 560\\
+\hline
+Pepcid & 75\\
+\hline
+Perforomist & 10\\
+\hline
+Perindopril Erbumine & 320\\
+\hline
+Permethrin & 330\\
+\hline
+Perphenazine & 2200\\
+\hline
+Petrolatum & 70\\
+\hline
+Petroleum Jelly & 120\\
+\hline
+Pfizerpen & 80\\
+\hline
+Pharbetol & 60\\
+\hline
+Phenazopyridine HCl & 180\\
+\hline
+Phendimetrazine Tartrate & 375\\
+\hline
+Phenelzine Sulfate & 45\\
+\hline
+Phenobarbital & 2805\\
+\hline
+Phenobarbital Sodium & 20\\
+\hline
+Phenohytro & 10\\
+\hline
+Phentermine HCl & 40\\
+\hline
+Phentolamine Mesylate & 10\\
+\hline
+Phenytek & 20\\
+\hline
+Phenytoin & 750\\
+\hline
+Phenytoin Sodium & 725\\
+\hline
+Phoslyra & 10\\
+\hline
+Phosphasal & 10\\
+\hline
+Phospholine Iodide & 10\\
+\hline
+Picato & 20\\
+\hline
+Pimozide & 30\\
+\hline
+Pindolol & 250\\
+\hline
+Pink Bismuth & 60\\
+\hline
+Piroxicam & 2255\\
+\hline
+Pitocin & 10\\
+\hline
+Plan B One-Step & 60\\
+\hline
+Plasma-Lyte 148 & 10\\
+\hline
+Plavix & 110\\
+\hline
+Plegridy & 40\\
+\hline
+Plenamine & 40\\
+\hline
+PNV-DHA & 10\\
+\hline
+PNV-Select & 20\\
+\hline
+Podofilox & 30\\
+\hline
+Polocaine & 30\\
+\hline
+Polocaine-MPF & 30\\
+\hline
+Polyethylene Glycol 3350 & 325\\
+\hline
+Polytrim & 10\\
+\hline
+Pomalyst & 40\\
+\hline
+Portia & 10\\
+\hline
+Portrazza & 10\\
+\hline
+Potassium Acetate & 120\\
+\hline
+Potassium Chloride & 3930\\
+\hline
+Pradaxa & 50\\
+\hline
+Pramipexole Dihydrochloride & 5520\\
+\hline
+Pramosone & 40\\
+\hline
+Prandin & 110\\
+\hline
+Pravastatin Sodium & 6560\\
+\hline
+Precedex & 40\\
+\hline
+Prednicarbate & 60\\
+\hline
+Prednisolone & 280\\
+\hline
+Prednisolone Acetate & 30\\
+\hline
+Prednisone & 9240\\
+\hline
+Prefest & 10\\
+\hline
+Pregnyl & 20\\
+\hline
+Premphase & 20\\
+\hline
+Prempro & 100\\
+\hline
+Prenaissance Plus & 10\\
+\hline
+Prenatal Plus & 60\\
+\hline
+Prenate Chewable & 10\\
+\hline
+Prenate Elite & 40\\
+\hline
+Prenate Essential & 10\\
+\hline
+Prenate Mini & 20\\
+\hline
+Prenate Pixie & 10\\
+\hline
+Prepidil & 10\\
+\hline
+Prevacid & 140\\
+\hline
+Prevalite & 10\\
+\hline
+Previfem & 30\\
+\hline
+Prialt & 30\\
+\hline
+Priftin & 20\\
+\hline
+Prilosec & 30\\
+\hline
+Primidone & 1440\\
+\hline
+Primlev & 50\\
+\hline
+Pristiq & 80\\
+\hline
+Privigen & 40\\
+\hline
+Probenecid & 220\\
+\hline
+Probuphine & 15\\
+\hline
+Procardia & 60\\
+\hline
+Procentra & 10\\
+\hline
+Prochlorperazine & 30\\
+\hline
+Prochlorperazine Edisylate & 245\\
+\hline
+Prochlorperazine Maleate & 1260\\
+\hline
+Procto-Med HC & 20\\
+\hline
+Procto-Pak & 10\\
+\hline
+Proctosol-HC & 20\\
+\hline
+Profilnine & 30\\
+\hline
+Progesterone & 2125\\
+\hline
+Proglycem & 10\\
+\hline
+Prograf & 70\\
+\hline
+Prolensa & 10\\
+\hline
+Proleukin & 10\\
+\hline
+Prolia & 10\\
+\hline
+Promethegan & 10\\
+\hline
+Prometrium & 90\\
+\hline
+Propafenone HCl & 180\\
+\hline
+Propantheline Bromide & 10\\
+\hline
+Propofol & 270\\
+\hline
+Propylthiouracil & 160\\
+\hline
+Protamine Sulfate & 80\\
+\hline
+Protonix & 180\\
+\hline
+Protopic & 75\\
+\hline
+Provenge & 10\\
+\hline
+Proventil HFA & 40\\
+\hline
+Provera & 30\\
+\hline
+Provigil & 30\\
+\hline
+Prozac & 50\\
+\hline
+Pseudoephedrine HCl & 10\\
+\hline
+Pulmozyme & 10\\
+\hline
+Pylera & 20\\
+\hline
+Pyrazinamide & 120\\
+\hline
+Pyridium & 30\\
+\hline
+Pyridostigmine Bromide & 210\\
+\hline
+Qbrelis & 10\\
+\hline
+Qsymia & 40\\
+\hline
+Quasense & 10\\
+\hline
+Quelicin & 50\\
+\hline
+Quetiapine Fumarate & 13300\\
+\hline
+Quinidine Gluconate & 40\\
+\hline
+Quinidine Sulfate & 50\\
+\hline
+Quinine Sulfate & 280\\
+\hline
+Rabeprazole Sodium & 675\\
+\hline
+Ramipril & 6930\\
+\hline
+Ranexa & 80\\
+\hline
+Rapamune & 50\\
+\hline
+Rasagiline Mesylate & 140\\
+\hline
+Rasuvo & 100\\
+\hline
+Ravicti & 20\\
+\hline
+Rayaldee & 10\\
+\hline
+Rebif & 10\\
+\hline
+Reclast & 10\\
+\hline
+Reclipsen & 30\\
+\hline
+Recombinate & 60\\
+\hline
+Rectiv & 20\\
+\hline
+Reglan & 20\\
+\hline
+Reguloid & 50\\
+\hline
+Relpax & 60\\
+\hline
+Remedy Phytoplex Z-Guard & 10\\
+\hline
+Remodulin & 40\\
+\hline
+Renacidin & 20\\
+\hline
+Renagel & 70\\
+\hline
+Renflexis & 10\\
+\hline
+Renova & 20\\
+\hline
+Renvela & 80\\
+\hline
+Repaglinide & 1035\\
+\hline
+Retin-A & 100\\
+\hline
+Retisert & 10\\
+\hline
+Revatio & 40\\
+\hline
+Revlimid & 60\\
+\hline
+Rhophylac & 10\\
+\hline
+Ribasphere & 10\\
+\hline
+Ribavirin & 315\\
+\hline
+Rifabutin & 20\\
+\hline
+Rifamate & 10\\
+\hline
+Rilutek & 40\\
+\hline
+Riluzole & 180\\
+\hline
+Riomet & 20\\
+\hline
+Risedronate Sodium & 1000\\
+\hline
+Risperidone & 19300\\
+\hline
+Ritalin & 90\\
+\hline
+Rituxan & 20\\
+\hline
+Rituxan Hycela & 20\\
+\hline
+Rivastigmine & 240\\
+\hline
+Rivelsa & 10\\
+\hline
+Rizatriptan & 255\\
+\hline
+Robinul & 50\\
+\hline
+Rocaltrol & 60\\
+\hline
+Rocuronium Bromide & 910\\
+\hline
+Rosadan & 40\\
+\hline
+Rosuvastatin Calcium & 8900\\
+\hline
+Rowasa & 10\\
+\hline
+Roxicet & 40\\
+\hline
+Roxicodone & 40\\
+\hline
+Rozerem & 50\\
+\hline
+Rubraca & 30\\
+\hline
+Ruconest & 30\\
+\hline
+Safyral & 10\\
+\hline
+Saizen & 20\\
+\hline
+Salagen & 20\\
+\hline
+Salex & 60\\
+\hline
+Salicylic Acid & 2400\\
+\hline
+Saline Mist & 15\\
+\hline
+Salsalate & 560\\
+\hline
+Sancuso & 20\\
+\hline
+Sandostatin & 50\\
+\hline
+Savella & 130\\
+\hline
+Saxenda & 10\\
+\hline
+Se-Natal 19 & 10\\
+\hline
+Seasonique & 20\\
+\hline
+Selenium & 10\\
+\hline
+Selenium Sulfide & 240\\
+\hline
+Senna & 480\\
+\hline
+Senna Laxative & 80\\
+\hline
+Senna S & 200\\
+\hline
+Sensipar & 100\\
+\hline
+Sensorcaine & 100\\
+\hline
+Sernivo & 10\\
+\hline
+Seroquel & 20\\
+\hline
+Serostim & 30\\
+\hline
+Sevelamer Carbonate & 200\\
+\hline
+Sevoflurane & 75\\
+\hline
+Signifor & 30\\
+\hline
+Sildenafil Citrate & 90\\
+\hline
+Silenor & 20\\
+\hline
+Siliq & 10\\
+\hline
+Silver Nitrate & 40\\
+\hline
+Silver Sulfadiazine & 280\\
+\hline
+Simethicone & 225\\
+\hline
+Simpesse & 10\\
+\hline
+Simponi & 20\\
+\hline
+Simulect & 20\\
+\hline
+Simvastatin & 19100\\
+\hline
+Sirolimus & 245\\
+\hline
+Sitavig & 10\\
+\hline
+Skelaxin & 40\\
+\hline
+Sklice & 20\\
+\hline
+Skyla & 10\\
+\hline
+Smoflipid & 10\\
+\hline
+Sodium Acetate & 125\\
+\hline
+Sodium Chloride & 9130\\
+\hline
+Sodium Phenylbutyrate & 45\\
+\hline
+Sodium Sulfacetamide & 45\\
+\hline
+Sojourn & 10\\
+\hline
+Soliris & 10\\
+\hline
+Solodyn & 60\\
+\hline
+Soltamox & 10\\
+\hline
+Solu-Cortef & 120\\
+\hline
+Soma & 30\\
+\hline
+Somatuline Depot & 30\\
+\hline
+Sorbitol & 60\\
+\hline
+Sorine & 50\\
+\hline
+Sotradecol & 20\\
+\hline
+Sovaldi & 10\\
+\hline
+Spinosad & 10\\
+\hline
+Spinraza & 10\\
+\hline
+Spiriva & 20\\
+\hline
+Spiriva Respimat & 20\\
+\hline
+Spironolactone & 8080\\
+\hline
+Sprintec & 20\\
+\hline
+Spritam & 40\\
+\hline
+Sprix & 20\\
+\hline
+Sronyx & 15\\
+\hline
+Starlix & 20\\
+\hline
+Stavudine & 240\\
+\hline
+Stendra & 30\\
+\hline
+Stimate & 10\\
+\hline
+Stiolto Respimat & 10\\
+\hline
+Stivarga & 10\\
+\hline
+Stomach Relief & 610\\
+\hline
+Stool Softener & 2760\\
+\hline
+Strattera & 190\\
+\hline
+Strensiq & 40\\
+\hline
+Striant & 20\\
+\hline
+Stribild & 40\\
+\hline
+Striverdi Respimat & 10\\
+\hline
+Strovite One & 10\\
+\hline
+Suboxone & 90\\
+\hline
+Succinylcholine Chloride & 20\\
+\hline
+Sucralfate & 1540\\
+\hline
+Sufentanil Citrate & 105\\
+\hline
+Sulfadiazine & 10\\
+\hline
+Sulfamylon & 20\\
+\hline
+Sulfasalazine & 425\\
+\hline
+Sulindac & 1040\\
+\hline
+Sumadan & 10\\
+\hline
+Sumatriptan & 330\\
+\hline
+Suprane & 30\\
+\hline
+Surmontil & 30\\
+\hline
+Syeda & 20\\
+\hline
+Symbyax & 50\\
+\hline
+Symproic & 25\\
+\hline
+Synagis & 20\\
+\hline
+Synalar & 60\\
+\hline
+Synarel & 10\\
+\hline
+Synjardy & 40\\
+\hline
+Synthroid & 450\\
+\hline
+Syprine & 10\\
+\hline
+Taclonex & 20\\
+\hline
+Tafinlar & 40\\
+\hline
+Tamiflu & 180\\
+\hline
+Tamoxifen Citrate & 700\\
+\hline
+Tandem Plus & 10\\
+\hline
+Tanzeum & 20\\
+\hline
+Tarceva & 30\\
+\hline
+Tarka & 70\\
+\hline
+Tasigna & 20\\
+\hline
+Taytulla & 10\\
+\hline
+Tazarotene & 80\\
+\hline
+Tazorac & 10\\
+\hline
+Tecfidera & 30\\
+\hline
+Teflaro & 20\\
+\hline
+Tegretol & 80\\
+\hline
+Tekturna & 105\\
+\hline
+Tekturna HCT & 110\\
+\hline
+Telmisartan & 2380\\
+\hline
+Temazepam & 3660\\
+\hline
+Temovate & 40\\
+\hline
+Temozolomide & 3850\\
+\hline
+Tenormin & 10\\
+\hline
+Terconazole & 300\\
+\hline
+Testim & 30\\
+\hline
+Testopel & 20\\
+\hline
+Testosterone & 1440\\
+\hline
+Testosterone Cypionate & 840\\
+\hline
+Testosterone Enanthate & 15\\
+\hline
+Tetrabenazine & 320\\
+\hline
+Texacort & 10\\
+\hline
+Thalomid & 40\\
+\hline
+Theo-24 & 50\\
+\hline
+Theophylline & 1800\\
+\hline
+Thera & 20\\
+\hline
+Therapeutic & 120\\
+\hline
+Thiola & 10\\
+\hline
+Thiothixene & 340\\
+\hline
+Thymoglobulin & 10\\
+\hline
+Thyrogen & 20\\
+\hline
+Thyroid & 30\\
+\hline
+Tigecycline & 20\\
+\hline
+Tikosyn & 60\\
+\hline
+Tilia Fe & 75\\
+\hline
+Timoptic & 80\\
+\hline
+Tinactin & 90\\
+\hline
+Tinidazole & 420\\
+\hline
+Tirosint & 180\\
+\hline
+Tivicay & 40\\
+\hline
+Tivorbex & 20\\
+\hline
+Tizanidine HCl & 85\\
+\hline
+Tobramycin & 3450\\
+\hline
+Tobrex & 20\\
+\hline
+Tolbutamide & 10\\
+\hline
+Tolmetin Sodium & 20\\
+\hline
+Tolterodine Tartrate & 625\\
+\hline
+Topamax & 150\\
+\hline
+Topicort & 60\\
+\hline
+Topiramate & 10800\\
+\hline
+Toposar & 60\\
+\hline
+Torisel & 10\\
+\hline
+Torsemide & 1960\\
+\hline
+Toviaz & 100\\
+\hline
+Tracleer & 20\\
+\hline
+Tradjenta & 20\\
+\hline
+Trandolapril & 270\\
+\hline
+Tranylcypromine Sulfate & 100\\
+\hline
+Travasol & 10\\
+\hline
+Travatan Z & 20\\
+\hline
+Trecator & 10\\
+\hline
+Trelegy Ellipta & 10\\
+\hline
+Trelstar & 135\\
+\hline
+Tremfya & 10\\
+\hline
+Tresiba & 20\\
+\hline
+Trexall & 40\\
+\hline
+Treximet & 20\\
+\hline
+Tri Femynor & 10\\
+\hline
+Tri-Estarylla & 15\\
+\hline
+Tri-Legest Fe & 10\\
+\hline
+Tri-Linyah & 10\\
+\hline
+Tri-Lo-Mili & 10\\
+\hline
+Tri-Lo-Sprintec & 10\\
+\hline
+Tri-Mili & 10\\
+\hline
+Tri-Previfem & 15\\
+\hline
+Tri-Sprintec & 70\\
+\hline
+Trianex & 10\\
+\hline
+Triazolam & 150\\
+\hline
+Tribenzor & 50\\
+\hline
+Tricor & 80\\
+\hline
+Trifluridine & 30\\
+\hline
+Trileptal & 70\\
+\hline
+Trilipix & 50\\
+\hline
+Trimethoprim & 180\\
+\hline
+Trimipramine Maleate & 180\\
+\hline
+Trintellix & 40\\
+\hline
+Trisenox & 10\\
+\hline
+Triumeq & 10\\
+\hline
+Trokendi XR & 40\\
+\hline
+Tropicamide & 180\\
+\hline
+Trospium Chloride & 280\\
+\hline
+Trulance & 10\\
+\hline
+Trulicity & 20\\
+\hline
+Truvada & 120\\
+\hline
+Tudorza Pressair & 40\\
+\hline
+Tussin DM Max & 20\\
+\hline
+Tybost & 10\\
+\hline
+Tygacil & 30\\
+\hline
+Tymlos & 10\\
+\hline
+Ultane & 20\\
+\hline
+Ultiva & 10\\
+\hline
+Ultra Strength Antacid & 10\\
+\hline
+Ultram & 10\\
+\hline
+Ultravate & 30\\
+\hline
+Ultravist & 60\\
+\hline
+Unithroid & 180\\
+\hline
+Urea & 315\\
+\hline
+Urecholine & 40\\
+\hline
+Urelle & 10\\
+\hline
+Urimar-T & 10\\
+\hline
+Uro-458 & 10\\
+\hline
+Urso Forte & 10\\
+\hline
+Ursodiol & 3325\\
+\hline
+Ustell & 10\\
+\hline
+Utira-C & 10\\
+\hline
+Vagifem & 20\\
+\hline
+Valacyclovir & 1805\\
+\hline
+Valcyte & 20\\
+\hline
+Valproate Sodium & 100\\
+\hline
+Valproic Acid & 1610\\
+\hline
+Valsartan & 7830\\
+\hline
+Valstar & 10\\
+\hline
+Vancomycin & 20\\
+\hline
+Vancomycin HCl & 80\\
+\hline
+Vandazole & 10\\
+\hline
+Vanos & 20\\
+\hline
+Vantas & 10\\
+\hline
+Varubi & 15\\
+\hline
+Vascepa & 30\\
+\hline
+Vasostrict & 20\\
+\hline
+Vasotec & 60\\
+\hline
+Vectibix & 20\\
+\hline
+Vectical & 10\\
+\hline
+Vecuronium Bromide & 360\\
+\hline
+Veletri & 30\\
+\hline
+Velivet & 20\\
+\hline
+Velphoro & 10\\
+\hline
+Venclexta & 40\\
+\hline
+Venofer & 75\\
+\hline
+Ventavis & 20\\
+\hline
+Veramyst & 10\\
+\hline
+Veregen & 10\\
+\hline
+Verelan & 20\\
+\hline
+Vestura & 10\\
+\hline
+Viagra & 250\\
+\hline
+Vibativ & 40\\
+\hline
+Viberzi & 20\\
+\hline
+Vicodin & 40\\
+\hline
+Vimovo & 20\\
+\hline
+Vinblastine Sulfate & 10\\
+\hline
+Vincasar PFS & 20\\
+\hline
+Viokace & 20\\
+\hline
+Viracept & 10\\
+\hline
+Viramune & 60\\
+\hline
+Viread & 80\\
+\hline
+Visipaque & 75\\
+\hline
+Vistaril & 30\\
+\hline
+Visudyne & 20\\
+\hline
+Vitafol & 50\\
+\hline
+Vital-D Rx & 10\\
+\hline
+Vitamin B Complex & 30\\
+\hline
+Vitamin K1 & 105\\
+\hline
+Vivelle-Dot & 50\\
+\hline
+Vivlodex & 30\\
+\hline
+Voltaren & 90\\
+\hline
+Vosevi & 10\\
+\hline
+Vraylar & 50\\
+\hline
+Vyfemla & 20\\
+\hline
+Vytorin & 20\\
+\hline
+Vyvanse & 200\\
+\hline
+Warfarin Sodium & 11800\\
+\hline
+Water & 30\\
+\hline
+Welchol & 90\\
+\hline
+Wera & 10\\
+\hline
+Xadago & 20\\
+\hline
+Xalatan & 20\\
+\hline
+Xalkori & 20\\
+\hline
+Xanax & 80\\
+\hline
+Xarelto & 70\\
+\hline
+Xatmep & 10\\
+\hline
+Xeloda & 50\\
+\hline
+Xenazine & 20\\
+\hline
+Xenical & 15\\
+\hline
+Xeomin & 80\\
+\hline
+Xerese & 10\\
+\hline
+Xermelo & 10\\
+\hline
+Xiidra & 10\\
+\hline
+Ximino & 30\\
+\hline
+Xofigo & 10\\
+\hline
+Xopenex & 90\\
+\hline
+Xopenex HFA & 20\\
+\hline
+Xtandi & 10\\
+\hline
+Xylocaine & 1060\\
+\hline
+Xylocaine-MPF & 20\\
+\hline
+Xyntha & 90\\
+\hline
+Xyrem & 10\\
+\hline
+Yaz & 20\\
+\hline
+Yuvafem & 20\\
+\hline
+Zafirlukast & 200\\
+\hline
+Zaleplon & 300\\
+\hline
+Zanaflex & 135\\
+\hline
+Zantac & 10\\
+\hline
+Zarah & 20\\
+\hline
+Zarontin & 20\\
+\hline
+Zavesca & 10\\
+\hline
+Zebutal & 10\\
+\hline
+Zegerid & 10\\
+\hline
+Zemaira & 10\\
+\hline
+Zemuron & 10\\
+\hline
+Zenchent & 30\\
+\hline
+Zenpep & 15\\
+\hline
+Zenzedi & 70\\
+\hline
+Zestoretic & 30\\
+\hline
+Zestril & 60\\
+\hline
+Zetia & 80\\
+\hline
+Zetonna & 15\\
+\hline
+Ziac & 30\\
+\hline
+Zidovudine & 525\\
+\hline
+Zinc Oxide & 80\\
+\hline
+Zinecard & 20\\
+\hline
+Zipsor & 10\\
+\hline
+Zoledronic Acid & 4455\\
+\hline
+Zolmitriptan & 2035\\
+\hline
+Zoloft & 90\\
+\hline
+Zolpimist & 10\\
+\hline
+Zometa & 40\\
+\hline
+Zonalon & 45\\
+\hline
+Zonegran & 40\\
+\hline
+Zonisamide & 2035\\
+\hline
+Zortress & 30\\
+\hline
+Zorvolex & 30\\
+\hline
+Zosyn & 330\\
+\hline
+Zubsolv & 60\\
+\hline
+Zuplenz & 20\\
+\hline
+Zurampic & 10\\
+\hline
+Zyclara & 30\\
+\hline
+Zydelig & 20\\
+\hline
+Zylet & 10\\
+\hline
+Zytiga & 45\\
+\hline
+Zyvox & 360\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(PRODUCTTYPENAME) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Counts of Entries per Drug Type"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Counts of Entries per Drug Type}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+PRODUCTTYPENAME & n\\
+\hline
+CELLULAR THERAPY & 10\\
+\hline
+HUMAN OTC DRUG & 83495\\
+\hline
+HUMAN PRESCRIPTION DRUG & 1043075\\
+\hline
+PLASMA DERIVATIVE & 915\\
+\hline
+STANDARDIZED ALLERGENIC & 50\\
+\hline
+VACCINE & 150\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(ROUTENAME) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Counts of Entries per Drug Route"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Counts of Entries per Drug Route}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+ROUTENAME & n\\
+\hline
+AURICULAR (OTIC) & 675\\
+\hline
+BUCCAL & 135\\
+\hline
+BUCCAL; ORAL; SUBLINGUAL & 70\\
+\hline
+CUTANEOUS & 1410\\
+\hline
+ENDOTRACHEAL; INTRACARDIAC; INTRAMUSCULAR; INTRAVENOUS; SUBCUTANEOUS & 60\\
+\hline
+ENDOTRACHEAL; INTRACARDIAC; INTRAVENOUS & 360\\
+\hline
+ENTERAL & 160\\
+\hline
+EPIDURAL & 190\\
+\hline
+EPIDURAL; INFILTRATION & 225\\
+\hline
+EPIDURAL; INFILTRATION; INTRACAUDAL; PERINEURAL & 380\\
+\hline
+EPIDURAL; INFILTRATION; PERINEURAL & 75\\
+\hline
+EPIDURAL; INTRACAUDAL; PERINEURAL & 40\\
+\hline
+EPIDURAL; INTRATHECAL; INTRAVENOUS & 20\\
+\hline
+EPIDURAL; INTRAVENOUS & 105\\
+\hline
+EPIDURAL; PERINEURAL & 25\\
+\hline
+EPIDURAL; RETROBULBAR & 20\\
+\hline
+EXTRACORPOREAL & 110\\
+\hline
+INFILTRATION & 120\\
+\hline
+INFILTRATION; PERINEURAL & 1640\\
+\hline
+INTRA-ARTERIAL & 40\\
+\hline
+INTRA-ARTERIAL; INTRAMUSCULAR; INTRATHECAL; INTRAVENOUS & 465\\
+\hline
+INTRA-ARTERIAL; INTRAMUSCULAR; INTRAVENOUS & 45\\
+\hline
+INTRA-ARTERIAL; INTRAVENOUS & 30\\
+\hline
+INTRA-ARTICULAR; INTRALESIONAL & 10\\
+\hline
+INTRA-ARTICULAR; INTRALESIONAL; INTRAMUSCULAR; INTRAVENOUS; SOFT TISSUE & 180\\
+\hline
+INTRA-ARTICULAR; INTRALESIONAL; INTRAMUSCULAR; PARENTERAL; SOFT TISSUE & 60\\
+\hline
+INTRA-ARTICULAR; INTRALESIONAL; INTRAMUSCULAR; SOFT TISSUE & 150\\
+\hline
+INTRA-ARTICULAR; INTRAMUSCULAR & 10\\
+\hline
+INTRA-ARTICULAR; INTRAMUSCULAR; INTRAVENOUS & 20\\
+\hline
+INTRA-ARTICULAR; PARENTERAL & 10\\
+\hline
+INTRACARDIAC; INTRAMUSCULAR; INTRAVENOUS; SUBCUTANEOUS & 100\\
+\hline
+INTRACARDIAC; INTRAVENOUS & 120\\
+\hline
+INTRACAVERNOUS & 100\\
+\hline
+INTRADERMAL & 30\\
+\hline
+INTRADERMAL; SUBCUTANEOUS & 50\\
+\hline
+INTRALESIONAL & 20\\
+\hline
+INTRALESIONAL; INTRAMUSCULAR; INTRASYNOVIAL; SOFT TISSUE & 210\\
+\hline
+INTRALESIONAL; PARENTERAL & 10\\
+\hline
+INTRAMUSCULAR & 3365\\
+\hline
+INTRAMUSCULAR; INTRAPLEURAL; INTRATHECAL; INTRAVENOUS & 55\\
+\hline
+INTRAMUSCULAR; INTRASYNOVIAL; SOFT TISSUE & 15\\
+\hline
+INTRAMUSCULAR; INTRAVASCULAR & 30\\
+\hline
+INTRAMUSCULAR; INTRAVENOUS & 5655\\
+\hline
+INTRAMUSCULAR; INTRAVENOUS; PARENTERAL & 40\\
+\hline
+INTRAMUSCULAR; INTRAVENOUS; RECTAL & 20\\
+\hline
+INTRAMUSCULAR; INTRAVENOUS; SUBCONJUNCTIVAL & 10\\
+\hline
+INTRAMUSCULAR; INTRAVENOUS; SUBCUTANEOUS & 2120\\
+\hline
+INTRAMUSCULAR; SUBCUTANEOUS & 430\\
+\hline
+INTRAOCULAR & 10\\
+\hline
+INTRATHECAL & 160\\
+\hline
+INTRATHECAL; INTRAVENOUS; SUBCUTANEOUS & 210\\
+\hline
+INTRATYMPANIC & 10\\
+\hline
+INTRAUTERINE & 40\\
+\hline
+INTRAVASCULAR & 85\\
+\hline
+INTRAVENOUS & 44340\\
+\hline
+INTRAVENOUS; INTRAVENOUS & 10\\
+\hline
+INTRAVENOUS; INTRAVENTRICULAR & 80\\
+\hline
+INTRAVENOUS; SUBCUTANEOUS & 7195\\
+\hline
+INTRAVENTRICULAR & 10\\
+\hline
+INTRAVESICAL & 10\\
+\hline
+INTRAVITREAL & 30\\
+\hline
+IRRIGATION & 1175\\
+\hline
+NASAL & 1160\\
+\hline
+OCCLUSIVE DRESSING TECHNIQUE & 35\\
+\hline
+OPHTHALMIC & 5895\\
+\hline
+OPHTHALMIC; TOPICAL & 275\\
+\hline
+ORAL & 988855\\
+\hline
+ORAL; RECTAL & 200\\
+\hline
+ORAL; RESPIRATORY (INHALATION) & 30\\
+\hline
+ORAL; TOPICAL & 480\\
+\hline
+PARENTERAL & 60\\
+\hline
+PERINEURAL & 40\\
+\hline
+RECTAL & 565\\
+\hline
+RESPIRATORY (INHALATION) & 1845\\
+\hline
+RETROBULBAR; TOPICAL & 20\\
+\hline
+SOFT TISSUE & 10\\
+\hline
+SUBARACHNOID & 30\\
+\hline
+SUBCUTANEOUS & 4880\\
+\hline
+SUBLINGUAL & 810\\
+\hline
+TOPICAL & 40865\\
+\hline
+TOPICAL; VAGINAL & 10\\
+\hline
+TRANSDERMAL & 4025\\
+\hline
+VAGINAL & 880\\
+\hline
+NA & 4140\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{(}\OtherTok{NA}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kbl}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Counts of NAs"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable_styling}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Counts of NAs}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+NA & n\\
+\hline
+NA & 1127695\\
+\hline
+\end{tabular}
+\end{table}
+
+This second wrangling chunk is dedicated to my summary statistics. I
+only took summary statistics
+(\texttt{mean,\ sd,\ var,\ n,\ quantile,\ min,\ max,\ n\_distinct}, etc)
+for three of my numeric variables and I grouped 4 of my categorical
+variables. What I found the most interesting in this chunk of wrangling
+is the sheer amount of human prescription drugs as compared to the other
+types of drugs, such as standardized allergenic drugs.
+
+\hypertarget{visualizing}{%
+\paragraph{Visualizing}\label{visualizing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vx <-}\StringTok{ }\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(PRODUCTTYPENAME }\OperatorTok{==}\StringTok{ "VACCINE"}\NormalTok{)}
+
+\NormalTok{vx }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Tot.Spndng)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_boxplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Total Spending on Vaccines over Time"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Total Spending($)"}\NormalTok{, }
+        \DataTypeTok{x =} \StringTok{"Year"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }
+    \FloatTok{3e+06}\NormalTok{, }\FloatTok{5e+05}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-6-1} \end{center}
+
+I was curious to see if Medicaid spending on vaccines increased or
+decreased over time and was predicting that spending would increase
+especially in the year 2019. I was surprised to see that the mean
+spending for the years 2015-2019 did not drastically change even with
+the outliers present in the year 2017.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Tot.Clms, }\DataTypeTok{y =}\NormalTok{ Tot.Spndng)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ PRODUCTTYPENAME, }\DataTypeTok{color =}\NormalTok{ PRODUCTTYPENAME), }
+        \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{2e+09}\NormalTok{, }
+    \FloatTok{5e+08}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1.5e+07}\NormalTok{, }\DecValTok{2500000}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Total Claims vs. Total Spending"}\NormalTok{, }
+    \DataTypeTok{x =} \StringTok{"Number of Total Claims"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Total Spending($)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{na.omit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(PROPRIETARYNAME) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{max =} \KeywordTok{max}\NormalTok{(Tot.Spndng)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(max))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,368 x 2
+##    PROPRIETARYNAME         max
+##    <chr>                 <dbl>
+##  1 Harvoni         2220257430 
+##  2 Latuda          1308504610 
+##  3 Vyvanse         1018112740 
+##  4 Epclusa          932270384.
+##  5 Genvoya          915713506.
+##  6 Suboxone         790784304.
+##  7 Lantus           789788500.
+##  8 Truvada          764516610.
+##  9 Lantus Solostar  764297196.
+## 10 Aripiprazole     678497420.
+## # ... with 1,358 more rows
+\end{verbatim}
+
+I was also really curious to see the relationship between total claims,
+the number of prescription fills for each drug every year, and total
+spending, aggregate drug spending for the Medicaid program during the
+benefit year. There seems to be a positive relationship where as total
+claims increase, total spending increases as well. I was also interested
+in looking at the drug with the most total spending and found it to be
+Harvoni. Harvoni is a medication used to treat hepatitis C.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{otc <-}\StringTok{ }\NormalTok{fulldata }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(PROPRIETARYNAME }\OperatorTok{==}\StringTok{ "Fentanyl"}\NormalTok{)}
+
+\NormalTok{otc }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Year, }\DataTypeTok{fill =}\NormalTok{ Year, }\DataTypeTok{y =}\NormalTok{ Tot.Spndng)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"summary"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Total Spending on Fentanyl over Time"}\NormalTok{, }
+    \DataTypeTok{y =} \StringTok{"Total Spending($)"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Year"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_errorbar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"summary"}\NormalTok{, }
+    \DataTypeTok{width =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_fill_brewer}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }
+    \FloatTok{1.5e+07}\NormalTok{, }\DecValTok{2500000}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-8-1} \end{center}
+
+This last plot is a bar chart on the total spending on Fentanyl over
+time and how spending for this drug has changed over time. Total
+spending on Fentanyl has been shown to gradually decrease from the year
+2015 to the year 2019.
+
+\hypertarget{concluding-remarks}{%
+\paragraph{Concluding Remarks}\label{concluding-remarks}}
+
+Looking at the relationships in Medicaid spending has been interesting.
+The overall total spending has gradually decreased since 2015 and has
+followed this trend regardless of whatever specific drug. While my
+prediction that spending would increase was wrong, I stil found it
+especially interesting how vaccine spending has maintained the same mean
+throughout the years, despite vaccines being pushed for the past few
+years.
+
+\end{document}

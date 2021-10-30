@@ -82,7 +82,7 @@ data2 <- read_csv("https://some.website/dataset2.csv")
     - At least one plot should correctly make use of `stat="summary"` 
     - Each plot should include both a theme and scale modification
     - Each should include a supporting paragraph describing the relationships being visualized and any trends that are apparent
-    - It is fine to include more, but limit yourself to 4. Plots should avoid being redundant! 
+    - It is fine to include more,  but limit yourself to 4. Plots should avoid being redundant! 
     - Make them pretty! Customize them! 
     
 <P style="page-break-before: always">
